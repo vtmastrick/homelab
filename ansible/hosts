@@ -1,0 +1,7 @@
+all:
+  vars:
+    ansible_connection: ssh
+    ansible_user: ansible
+  hosts:
+    homelab01:
+      ansible_host: homelab01.local.mastrick.com
