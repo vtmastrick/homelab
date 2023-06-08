@@ -1,0 +1,50 @@
+---
+- name: remove docker unofficial packages
+  apt:
+    pkg: 
+      - docker.io
+      - docker-compose
+      - docker-doc
+      - podman-docker
+    state: absent
+
+- name: docker prereqs
+  apt:
+    pkg:
+      - ca-certificates
+      - curl
+      - gnupg
+
+- name: Add Docker GPG key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+
+- name: add docker apt repo
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+    state: present
+    update_cache: yes
+
+- name: install docker
+  apt:
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+
+- name: start and enable docker daemon
+  become: yes
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: start and enable containerd daemon
+  become: yes
+  service:
+    name: containerd
+    state: started
+    enabled: yes
