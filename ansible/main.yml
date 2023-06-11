@@ -1,8 +1,8 @@
 - hosts: homelab01
   become: yes
   become_method: sudo
-#  roles:
-#    - docker
+  roles:
+    - docker
   tasks:
     - name: docker compose
       include_role:
