@@ -1,0 +1,3 @@
+compose_path: /opt/docker-compose/{{ application }}/docker-compose.yml
+service_name: docker.{{ application }}.service
+service_path: /etc/systemd/system/{{ service_name }}

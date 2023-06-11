@@ -1,0 +1,7 @@
+---
+users:
+ - app: 'glances'
+   username:  'glances'
+   groupname: 'glances'
+   uid: 3005
+   gid: 3005

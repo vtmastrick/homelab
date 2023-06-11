@@ -1,0 +1,21 @@
+---
+- name: include users
+  include_vars:
+    file: users.yaml
+
+- name: include map
+  include_vars:
+    file: maps.yml
+
+- name: create {{ user_object.groupname }} group
+  group:
+    name: "{{ user_object.groupname }}"
+    gid: "{{ user_object.gid }}"
+    state: present
+
+- name: create {{ user_object.username }} user
+  user: 
+    name: "{{ user_object.username }}"
+    uid: "{{ user_object.uid }}"
+    state: present
+    group: "{{ user_object.gid }}"
