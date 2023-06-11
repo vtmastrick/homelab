@@ -1,0 +1,40 @@
+- name: include vars
+  include_vars:
+    file: main.yml
+
+- name: create workspace
+  include_tasks:
+    file: tasks/user_and_group.yml
+  vars:
+    app: "{{ application }}"
+
+- name: add user to docker group
+  user:
+    name: "{{ application }}"
+    groups: docker
+    append: yes
+
+- name: Make sure destination dir exists
+  file:
+    path: "{{ compose_path | dirname }}"
+    state: directory
+
+- name: Copy compose file
+  copy: 
+    src: "{{ application }}.yml"
+    dest: "{{ compose_path }}"
+  register: compose_file
+
+- name: Copy service file
+  copy:
+    src: "{{ application }}.service"
+    dest: "{{ service_path }}"
+  register: service_file
+
+- name: enable service
+  service:
+    name: "{{ service_name }}"
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  when: compose_file.changed or service_file.changed

@@ -1,0 +1,12 @@
+---
+users:
+ - app: 'glances'
+   username:  'glances'
+   groupname: 'glances'
+   uid: 3005
+   gid: 3005
+ - app: 'nginx'
+   username: 'nginx'
+   groupname: 'nginx'
+   uid: 9000
+   gid: 9000
