@@ -5,3 +5,8 @@ users:
    groupname: 'glances'
    uid: 3005
    gid: 3005
+ - app: 'libreSpeed'
+   username: 'libreSpeed'
+   groupname: 'libreSpeed'
+   uid: 5005
+   gid: 5005
