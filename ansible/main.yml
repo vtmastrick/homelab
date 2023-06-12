@@ -14,3 +14,8 @@
         name: docker-compose
       vars:
         application: libreSpeed
+    - name: docker compose
+      include_role:
+        name: docker-compose
+      vars:
+        application: pyLoad

@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  pyload-ng:
+    container_name: pyload-ng
+    restart: always
+    ports:
+      - 8087:8000 # Webinterface
+      - 9666:9666 # Click 'N' Load
+    image: lscr.io/linuxserver/pyload-ng:latest
+    environment:
+      - TZ=America/New_York
+    volumes:
+      - /opt/docker-compose/pyLoad/config:/config
+      - /opt/docker-compose/pyLoad/downloads:/downloads

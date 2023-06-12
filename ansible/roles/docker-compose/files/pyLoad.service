@@ -1,0 +1,13 @@
+[Unit]
+Description=pyLoad with Docker
+Requires=docker.service
+
+[Service]
+User=pyLoad
+Group=pyLoad
+Restart=always
+ExecStart=/usr/bin/docker compose -f /opt/docker-compose/pyLoad/docker-compose.yml up
+ExecStop=/usr/bin/docker compose -f /opt/docker-compose/pyLoad/docker-compose.yml down
+
+[Install]
+WantedBy=default.target
