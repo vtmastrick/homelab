@@ -2,7 +2,7 @@ version: '3.3'
 services:
   pyload-ng:
     container_name: pyload-ng
-    restart: always
+    restart: unless-stopped
     ports:
       - 8087:8000 # Webinterface
       - 9666:9666 # Click 'N' Load
@@ -10,5 +10,5 @@ services:
     environment:
       - TZ=America/New_York
     volumes:
-      - /opt/docker-compose/pyLoad/config:/config
-      - /opt/docker-compose/pyLoad/downloads:/downloads
+      - /opt/docker-compose/pyload/config:/config
+      - /opt/docker-compose/pyload/downloads:/downloads

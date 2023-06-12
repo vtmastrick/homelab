@@ -10,8 +10,8 @@ users:
    groupname: 'libreSpeed'
    uid: 5005
    gid: 5005
- - app: 'pyLoad'
-   username: 'pyLoad'
-   groupname: 'pyLoad'
+ - app: 'pyload'
+   username: 'pyload'
+   groupname: 'pyload'
    uid: 5010
    gid: 5010
