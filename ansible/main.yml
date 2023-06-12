@@ -9,3 +9,8 @@
         name: docker-compose
       vars:
         application: glances
+    - name: docker compose
+      include_role:
+        name: docker-compose
+      vars:
+        application: libreSpeed
