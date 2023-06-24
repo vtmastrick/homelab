@@ -7,14 +7,14 @@
   include_vars:
     file: maps.yml
 
-- name: create {{ user_object.groupname }} group
+- name: "create {{ user_object.groupname }} group"
   group:
     name: "{{ user_object.groupname }}"
     gid: "{{ user_object.gid }}"
     state: present
 
-- name: create {{ user_object.username }} user
-  user: 
+- name: "create {{ user_object.username }} user"
+  user:
     name: "{{ user_object.username }}"
     uid: "{{ user_object.uid }}"
     state: present

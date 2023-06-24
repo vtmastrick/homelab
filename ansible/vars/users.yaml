@@ -15,3 +15,8 @@ users:
    groupname: 'pyload'
    uid: 5010
    gid: 5010
+ - app: 'ArchiveBox'
+   username: 'ArchiveBox'
+   groupname: 'ArchiveBox'
+   uid: 5020
+   gid: 5020
