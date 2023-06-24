@@ -1,0 +1,12 @@
+- name: create directory
+  file:
+    path: "{{ entry.mount }}"
+    state: directory
+
+- name: Ensure fstab uses nodev
+  mount:
+    name: "{{ entry.mount }}"
+    src: "{{ entry.device }}"
+    fstype: "{{ entry.fstype }}"
+    opts: "{{ entry.options }},nodev"
+    state: mounted

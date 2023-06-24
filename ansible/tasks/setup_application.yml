@@ -1,0 +1,70 @@
+- name: vars
+  set_fact:
+    pre_path:  "roles/{{ application.name }}/tasks/pre.yml"
+    post_path: "roles/{{ application.name }}/tasks/post.yml"
+    service_name: "docker-compose.{{ application.name }}.service"
+    compose_path: "/opt/docker-compose/{{ application.name }}/docker-compose.yml"
+
+- name: vars2
+  set_fact:
+    service_path: "/etc/systemd/system/{{ service_name }}"
+
+- name: create workspace
+  include_tasks:
+    file: tasks/user_and_group.yml
+  vars:
+    app: "{{ application.name }}"
+
+- name: Check for prereqs
+  become: no
+  local_action: stat path="{{ pre_path }}"
+  register: prereq
+
+- name: Do prereqs for "{{ application.name }}"
+  include_tasks:
+    file: "{{ pre_path }}"
+  when: prereq.stat.exists
+
+- name: add user to docker group
+  user:
+    name: "{{ application.name }}"
+    groups: docker
+    append: yes
+
+- name: Make sure destination dir exists
+  file:
+    path: "{{ compose_path | dirname }}"
+    state: directory
+
+- name: Copy compose file
+  copy:
+    src: "roles/{{ application.name }}/files/docker-compose.yml"
+    dest: "{{ compose_path }}"
+  register: compose
+
+- name: Check for postreqs
+  become: no
+  local_action: stat path="{{ post_path }}"
+  register: post_deploy
+
+- name: Do post deploy for "{{ application.name }}"
+  include_tasks:
+    file: "{{ post_path }}"
+  when: post_deploy.stat.exists
+  register:
+    post_deploy_action
+
+- name: Deploy service for "{{ application.name }}"
+  template:
+    src: ../templates/docker-compose.service
+    dest: "{{ service_path }}"
+  register:
+    service
+
+- name: Restart service for "{{ application.name }}"
+  service:
+    name: "{{ service_name }}"
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  when: compose.changed or post_deploy_action.changed or service.changed

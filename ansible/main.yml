@@ -2,15 +2,18 @@
   become: yes
   become_method: sudo
   roles:
+    - ansible_client
     - docker
   tasks:
-    - name: docker compose
-      include_role:
-        name: docker-compose
+    - set_fact:
+        applications:
+          - name : ArchiveBox
+          - name : libreSpeed
+          - name : glances
+
+    - name: setup application
+      include_tasks:
+        file: tasks/setup_application.yml
       vars:
-        application: glances
-    - name: docker compose
-      include_role:
-        name: docker-compose
-      vars:
-        application: libreSpeed
+        application: "{{ item }}"
+      with_items: "{{ applications }}"

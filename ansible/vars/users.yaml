@@ -10,3 +10,14 @@ users:
    groupname: 'libreSpeed'
    uid: 5005
    gid: 5005
+ - app: 'pyload'
+   username: 'pyload'
+   groupname: 'pyload'
+   uid: 5010
+   gid: 5010
+ - app: 'ArchiveBox'
+   username: 'ArchiveBox'
+   groupname: 'ArchiveBox'
+   uid: 5020
+   gid: 5020
+
