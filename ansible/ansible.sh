@@ -1,1 +1,1 @@
-ansible-playbook main.yml
+ansible-playbook main.yml --vault-password-file ~/.private/ansible_secret.key
