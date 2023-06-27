@@ -10,6 +10,7 @@
           - name : ArchiveBox
           - name : libreSpeed
           - name : glances
+          - name : Ghostfolio
 
     - name: setup application
       include_tasks:

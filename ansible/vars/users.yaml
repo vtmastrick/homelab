@@ -1,4 +1,3 @@
----
 users:
  - app: 'glances'
    username:  'glances'
@@ -20,3 +19,8 @@ users:
    groupname: 'ArchiveBox'
    uid: 5020
    gid: 5020
+ - app: 'Ghostfolio'
+   username: 'Ghostfolio'
+   groupname: 'Ghostfolio'
+   uid: 5040
+   gid: 5040
