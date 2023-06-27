@@ -1,0 +1,42 @@
+- name: include vault
+  include_vars:
+    file: vault.yml
+
+- name: include vars
+  include_vars:
+    file: ../vars/main.yml
+
+- name: "Set variables"
+  set_fact:
+    smb:
+      username : ghostfolio
+      password : test
+    user:
+      uid : 5040
+      gid : 5040
+
+- set_fact:
+    fstab:
+      mount: "/mnt/Ghostfolio"
+      device: "//10.10.125.202/ghostfolio"
+      fstype: "cifs"
+      options: "username={{ smb.username }},password={{ smb.password }},iocharset=utf8,uid={{ user.uid }},gid={{ user.gid }},file_mode=0755,dir_mode=0755,vers=3.1.1"
+
+- include_tasks:
+    file: tasks/fstab.yml
+  vars:
+    entry: "{{ fstab }}"
+
+- name: archive box local
+  file:
+    path: /home/Ghostfolio/data
+    owner: Ghostfolio
+    group: Ghostfolio
+    state: directory
+
+- name: deploy environment file
+  template:
+    src: ../templates/.env
+    dest: /opt/docker-compose/Ghostfolio/.env
+    owner: Ghostfolio
+    group: Ghostfolio
