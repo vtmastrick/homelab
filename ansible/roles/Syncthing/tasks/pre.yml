@@ -1,0 +1,21 @@
+- name: "Include secrets"
+  include_vars:
+    file: vault.yml
+
+- name: "Get variables"
+  include_vars:
+    file: ../vars/main.yml
+
+- set_fact:
+    fstab:
+      user: "Syncthing"
+      group: "Syncthing"
+      mount: "/mnt/Syncthing"
+      device: "//10.10.125.201/Syncthing"
+      fstype: "cifs"
+      options: "username={{ smb.username }},password={{ smb.password }},iocharset=utf8,uid={{ user.uid }},gid={{ user.gid }},file_mode=0755,dir_mode=0755,vers=3.1.1"
+
+- include_tasks:
+    file: tasks/fstab.yml
+  vars:
+    entry: "{{ fstab }}"

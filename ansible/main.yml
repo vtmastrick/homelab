@@ -11,6 +11,7 @@
           - name : libreSpeed
           - name : glances
           - name : Ghostfolio
+          - name : Syncthing
 
     - name: setup application
       include_tasks:
