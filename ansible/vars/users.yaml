@@ -24,3 +24,8 @@ users:
    groupname: 'Ghostfolio'
    uid: 5040
    gid: 5040
+ - app: 'Syncthing'
+   username: 'Syncthing'
+   groupname: 'Syncthing'
+   uid: 5050
+   gid: 5050

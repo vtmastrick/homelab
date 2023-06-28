@@ -17,6 +17,8 @@
 
 - set_fact:
     fstab:
+      user: Ghostfolio
+      group: Ghostfolio
       mount: "/mnt/Ghostfolio"
       device: "//10.10.125.202/ghostfolio"
       fstype: "cifs"

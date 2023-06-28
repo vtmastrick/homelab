@@ -1,0 +1,3 @@
+smb:
+  username: Syncthing
+  password: "{{ secret_smb_syncthing }}"

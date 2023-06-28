@@ -9,6 +9,8 @@
 
 - set_fact:
     fstab:
+      user: "ArchiveBox"
+      group: "ArchiveBox"
       mount: "/mnt/ArchiveBox"
       device: "//10.10.125.201/ArchiveBox"
       fstype: "cifs"
