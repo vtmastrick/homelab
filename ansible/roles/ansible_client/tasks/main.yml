@@ -7,7 +7,7 @@
 - name: add ansible to group
   user:
     name: ansible
-    groups: passwordfreesu,ArchiveBox
+    groups: passwordfreesu
     append: yes
 
 - name: ansible power up

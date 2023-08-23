@@ -1,9 +1,13 @@
+- name: lower application name
+  set_fact:
+    app_name_lower: "{{ application.name | lower }}"
+
 - name: vars
   set_fact:
-    pre_path:  "roles/{{ application.name }}/tasks/pre.yml"
-    post_path: "roles/{{ application.name }}/tasks/post.yml"
-    service_name: "docker-compose.{{ application.name }}.service"
-    compose_path: "/opt/docker-compose/{{ application.name }}/docker-compose.yml"
+    pre_path:  "roles/{{ app_name_lower }}/tasks/pre.yml"
+    post_path: "roles/{{ app_name_lower }}/tasks/post.yml"
+    service_name: "docker-compose.{{ app_name_lower }}.service"
+    compose_path: "/opt/docker-compose/{{ app_name_lower }}/docker-compose.yml"
 
 - name: vars2
   set_fact:
@@ -27,7 +31,7 @@
 
 - name: add user to docker group
   user:
-    name: "{{ application.name }}"
+    name: "{{ app_name_lower }}"
     groups: docker
     append: yes
 
@@ -38,7 +42,7 @@
 
 - name: Copy compose file
   copy:
-    src: "roles/{{ application.name }}/files/docker-compose.yml"
+    src: "roles/{{ app_name_lower }}/files/docker-compose.yml"
     dest: "{{ compose_path }}"
   register: compose
 

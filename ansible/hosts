@@ -5,3 +5,5 @@ all:
   hosts:
     homelab01:
       ansible_host: homelab01.local.mastrick.com
+    arr:
+      ansible_host: homelab01.local.mastrick.com

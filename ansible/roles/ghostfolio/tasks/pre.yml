@@ -17,8 +17,8 @@
 
 - set_fact:
     fstab:
-      user: Ghostfolio
-      group: Ghostfolio
+      user: ghostfolio
+      group: ghostfolio
       mount: "/mnt/Ghostfolio"
       device: "//10.10.125.202/ghostfolio"
       fstype: "cifs"
@@ -29,16 +29,23 @@
   vars:
     entry: "{{ fstab }}"
 
-- name: archive box local
+- name: local ghostfolio database
   file:
-    path: /home/Ghostfolio/data
-    owner: Ghostfolio
-    group: Ghostfolio
+    path: /home/ghostfolio/data
+    owner: ghostfolio
+    group: ghostfolio
+    state: directory
+
+- name: create location for environment file
+  file:
+    path: /opt/docker-compose/ghostfolio/
+    owner: ghostfolio
+    group: ghostfolio
     state: directory
 
 - name: deploy environment file
   template:
     src: ../templates/.env
-    dest: /opt/docker-compose/Ghostfolio/.env
-    owner: Ghostfolio
-    group: Ghostfolio
+    dest: /opt/docker-compose/ghostfolio/.env
+    owner: ghostfolio
+    group: ghostfolio
