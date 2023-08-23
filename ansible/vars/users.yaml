@@ -5,8 +5,8 @@ users:
    uid: 3005
    gid: 3005
  - app: 'libreSpeed'
-   username: 'libreSpeed'
-   groupname: 'libreSpeed'
+   username: 'librespeed'
+   groupname: 'librespeed'
    uid: 5005
    gid: 5005
  - app: 'pyload'
@@ -15,17 +15,22 @@ users:
    uid: 5010
    gid: 5010
  - app: 'ArchiveBox'
-   username: 'ArchiveBox'
-   groupname: 'ArchiveBox'
+   username: 'archivebox'
+   groupname: 'archivebox'
    uid: 5020
    gid: 5020
  - app: 'Ghostfolio'
-   username: 'Ghostfolio'
-   groupname: 'Ghostfolio'
+   username: 'ghostfolio'
+   groupname: 'ghostfolio'
    uid: 5040
    gid: 5040
  - app: 'Syncthing'
-   username: 'Syncthing'
-   groupname: 'Syncthing'
+   username: 'syncthing'
+   groupname: 'syncthing'
    uid: 5050
    gid: 5050
+ - app: 'Prowlarr'
+   username: 'prowlarr'
+   groupname: 'prowlarr'
+   uid: 2010
+   gid: 2010

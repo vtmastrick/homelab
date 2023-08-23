@@ -19,3 +19,21 @@
       vars:
         application: "{{ item }}"
       with_items: "{{ applications }}"
+
+- hosts: arr
+  become: yes
+  become_method: sudo
+  roles:
+    - ansible_client
+    - docker
+  tasks:
+    - set_fact:
+        applications:
+          - name : Prowlarr
+
+    - name: setup application
+      include_tasks:
+        file: tasks/setup_application.yml
+      vars:
+        application: "{{ item }}"
+      with_items: "{{ applications }}"

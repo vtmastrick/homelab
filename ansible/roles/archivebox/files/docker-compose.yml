@@ -6,7 +6,7 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - /home/ArchiveBox/data:/data
+      - /home/archivebox/data:/data
     environment:
       - ALLOWED_HOSTS=*
       - PGUID=5020

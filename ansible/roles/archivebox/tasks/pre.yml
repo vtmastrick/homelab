@@ -9,9 +9,9 @@
 
 - set_fact:
     fstab:
-      user: "ArchiveBox"
-      group: "ArchiveBox"
-      mount: "/mnt/ArchiveBox"
+      user: "archivebox"
+      group: "archivebox"
+      mount: "/mnt/archivebox"
       device: "//10.10.125.201/ArchiveBox"
       fstype: "cifs"
       options: "username={{ smb.username }},password={{ smb.password }},iocharset=utf8,uid={{ user.uid }},gid={{ user.gid }},file_mode=0755,dir_mode=0755,vers=3.1.1"
@@ -23,7 +23,7 @@
 
 - name: archive box local
   file:
-    path: /home/ArchiveBox/data
-    owner: ArchiveBox
-    group: ArchiveBox
+    path: /home/archivebox/data
+    owner: archivebox
+    group: archivebox
     state: directory
