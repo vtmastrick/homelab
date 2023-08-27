@@ -34,3 +34,8 @@ users:
    groupname: 'prowlarr'
    uid: 2010
    gid: 2010
+ - app: 'NZBGet'
+   username: 'nzbget'
+   groupname: 'nzbget'
+   uid: 2080
+   gid: 2080

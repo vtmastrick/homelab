@@ -30,6 +30,7 @@
     - set_fact:
         applications:
           - name : Prowlarr
+          - name : NZBGet
 
     - name: setup application
       include_tasks:
