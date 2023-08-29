@@ -12,6 +12,7 @@
           - name : glances
           - name : Ghostfolio
           - name : Syncthing
+          - name : ViewTube
 
     - name: setup application
       include_tasks:

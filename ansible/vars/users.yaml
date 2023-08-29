@@ -39,3 +39,8 @@ users:
    groupname: 'nzbget'
    uid: 2080
    gid: 2080
+ - app: 'ViewTube'
+   username: 'viewtube'
+   groupname: 'viewtube'
+   uid: 5015
+   gid: 5015
