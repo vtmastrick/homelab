@@ -17,7 +17,7 @@
       user: "nzbget"
       group: "nzbget"
       mount: "/mnt/nzbget"
-      device: "//10.10.125.202/nzbget"
+      device: "//10.10.125.202/nzb"
       fstype: "cifs"
       options: "username={{ samba_creds.username }},password={{ samba_creds.password }},iocharset=utf8,uid={{ user.uid }},gid={{ user.gid }},file_mode=0755,dir_mode=0755,vers=3.1.1"
 
