@@ -7,7 +7,7 @@
   <SslPort>6969</SslPort>
   <EnableSsl>False</EnableSsl>
   <LaunchBrowser>True</LaunchBrowser>
-  <ApiKey>"{{ prowlarr_api_key }}"</ApiKey>
+  <ApiKey>{{ prowlarr_api_key }}</ApiKey>
   <AuthenticationMethod>None</AuthenticationMethod>
   <Branch>develop</Branch>
   <SslCertPath></SslCertPath>

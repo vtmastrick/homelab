@@ -44,3 +44,18 @@ users:
    groupname: 'viewtube'
    uid: 5015
    gid: 5015
+ - app: 'sonarr_hd'
+   username: 'sonarr_hd'
+   groupname: 'sonarr_hd'
+   uid: 2060
+   gid: 2060
+ - app: 'sonarr_uhd'
+   username: 'sonarr_uhd'
+   groupname: 'sonarr_uhd'
+   uid: 2061
+   gid: 2061
+ - app: 'sonarr_archive'
+   username: 'sonarr_archive'
+   groupname: 'sonarr_archive'
+   uid: 2062
+   gid: 2062
