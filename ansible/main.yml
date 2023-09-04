@@ -33,6 +33,7 @@
           - name : Prowlarr
           - name : NZBGet
           - name : Sonarr_HD
+          - name : Sonarr_UHD
 
     - name: setup application
       include_tasks:
