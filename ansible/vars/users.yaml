@@ -59,3 +59,13 @@ users:
    groupname: 'sonarr_archive'
    uid: 2062
    gid: 2062
+ - app: 'torrent_qbt'
+   username: 'torrent_qbt'
+   groupname: 'torrent_qbt'
+   uid: 2070
+   gid: 2070
+ - app: 'gluetun'
+   username: 'gluetun'
+   groupname: 'gluetun'
+   uid: 2000
+   gid: 2000

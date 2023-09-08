@@ -7,12 +7,12 @@
   tasks:
     - set_fact:
         applications:
-          - name : ArchiveBox
-          - name : libreSpeed
+#          - name : ArchiveBox
+#          - name : libreSpeed
           - name : glances
-          - name : Ghostfolio
-          - name : Syncthing
-          - name : ViewTube
+#          - name : Ghostfolio
+#          - name : Syncthing
+#          - name : ViewTube
 
     - name: setup application
       include_tasks:
@@ -30,10 +30,12 @@
   tasks:
     - set_fact:
         applications:
-          - name : Prowlarr
-          - name : NZBGet
-          - name : Sonarr_HD
-          - name : Sonarr_UHD
+          - name : Gluetun
+#          - name : Prowlarr
+#          - name : NZBGet
+#          - name : Sonarr_HD
+#          - name : Sonarr_UHD
+          - name : Torrent_qBt
 
     - name: setup application
       include_tasks:

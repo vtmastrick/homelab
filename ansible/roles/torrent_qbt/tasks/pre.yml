@@ -1,0 +1,34 @@
+
+- name: "Include secrets"
+  include_vars:
+    file: vault.yml
+
+- name: "Get variables"
+  include_vars:
+    file: ../vars/main.yml
+
+- name: get cifs util for path
+  apt:
+    pkg:
+      - cifs-utils
+    state: present
+
+- name: "Set variables"
+  set_fact:
+    user:
+      uid : 2070
+      gid : 2070
+
+- set_fact:
+    fstab:
+      user: "torrent_qbt"
+      group: "torrent_qbt"
+      mount: "/mnt/torrent_qbt"
+      device: "//10.10.125.202/torrent"
+      fstype: "cifs"
+      options: "username={{ samba_creds.username }},password={{ samba_creds.password }},iocharset=utf8,uid={{ user.uid }},gid={{ user.gid }},file_mode=0755,dir_mode=0755,vers=3.1.1"
+
+- include_tasks:
+    file: tasks/fstab.yml
+  vars:
+    entry: "{{ fstab }}"
