@@ -1,0 +1,21 @@
+- name: "Include secrets"
+  include_vars:
+    file: vault.yml
+
+- name: "Get variables"
+  include_vars:
+    file: ../vars/main.yml
+
+- name: Make sure destination dir exists
+  file:
+    path: "/opt/docker-compose/recyclarr/config"
+    state: directory
+    owner: recyclarr
+    group: recyclarr
+
+- name: deploy configuration file
+  template:
+    src: ../templates/recyclarr.yml
+    dest: /opt/docker-compose/recyclarr/config/recyclarr.xml
+    owner: recyclarr
+    group: recyclarr

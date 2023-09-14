@@ -30,12 +30,15 @@
   tasks:
     - set_fact:
         applications:
-          - name : Gluetun
+#          - name : Gluetun
 #          - name : Prowlarr
 #          - name : NZBGet
 #          - name : Sonarr_HD
 #          - name : Sonarr_UHD
-          - name : Torrent_qBt
+#          - name : Torrent_qBt
+           - name : Radarr_HD
+           - name : Radarr_UHD
+           - name : Recyclarr
 
     - name: setup application
       include_tasks:

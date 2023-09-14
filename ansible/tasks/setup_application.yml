@@ -39,11 +39,15 @@
   file:
     path: "{{ compose_path | dirname }}"
     state: directory
+    owner: "{{ app_name_lower }}"
+    group: "{{ app_name_lower }}"
 
 - name: Copy compose file
   copy:
     src: "roles/{{ app_name_lower }}/files/docker-compose.yml"
     dest: "{{ compose_path }}"
+    owner: "{{ app_name_lower }}"
+    group: "{{ app_name_lower }}"
   register: compose
 
 - name: Check for postreqs

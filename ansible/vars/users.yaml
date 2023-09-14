@@ -69,3 +69,18 @@ users:
    groupname: 'gluetun'
    uid: 2000
    gid: 2000
+ - app: 'radarr_hd'
+   username: 'radarr_hd'
+   groupname: 'radarr_hd'
+   uid: 2050
+   gid: 2050
+ - app: 'radarr_uhd'
+   username: 'radarr_uhd'
+   groupname: 'radarr_uhd'
+   uid: 2051
+   gid: 2051
+ - app: 'recyclarr'
+   username: 'recyclarr'
+   groupname: 'recyclarr'
+   uid: 2020
+   gid: 2020

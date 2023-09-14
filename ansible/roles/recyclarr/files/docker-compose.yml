@@ -1,0 +1,14 @@
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr
+    container_name: recyclarr
+    user: 2020:2020
+    volumes:
+      - ./config:/config
+    environment:
+      - TZ=America/New_York
+
+networks:
+  default:
+    name: overlay_arr_network
+    external: true

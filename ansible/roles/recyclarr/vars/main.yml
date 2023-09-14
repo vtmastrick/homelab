@@ -1,0 +1,3 @@
+---
+radarr_hd_api_key: "{{ secret_radarr_hd_api_key }}"
+radarr_uhd_api_key: "{{ secret_radarr_uhd_api_key }}"
