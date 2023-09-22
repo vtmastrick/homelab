@@ -1,7 +1,7 @@
 ---
 - name: remove docker unofficial packages
   apt:
-    pkg: 
+    pkg:
       - docker.io
       - docker-compose
       - docker-doc
@@ -48,3 +48,14 @@
     name: containerd
     state: started
     enabled: yes
+
+- set_fact:
+    watchtower_app:
+      - name : "Watchtower"
+
+- name: setup application
+  include_tasks:
+    file: tasks/setup_application.yml
+  vars:
+    application: "{{ item }}"
+  with_items: "{{ watchtower_app }}"
