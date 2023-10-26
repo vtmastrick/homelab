@@ -1,2 +1,2 @@
 lower_app_name: "{{ app | lower }}"
-user_object: "{{ users | selectattr('username', 'equalto', app_name_lower) | first }}"
+user_object: "{{ users | selectattr('username', 'equalto', lower_app_name) | first }}"
