@@ -2,7 +2,7 @@
 version: "2.1"
 services:
   sonarr:
-    image: lscr.io/linuxserver/sonarr:latest
+    image: lscr.io/linuxserver/sonarr:develop
     container_name: sonarr_hd
     environment:
       - PUID=2060
