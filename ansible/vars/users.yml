@@ -54,9 +54,9 @@ users:
    groupname: 'sonarr_uhd'
    uid: 2061
    gid: 2061
- - app: 'sonarr_archive'
-   username: 'sonarr_archive'
-   groupname: 'sonarr_archive'
+ - app: 'sonarr_anime'
+   username: 'sonarr_anime'
+   groupname: 'sonarr_anime'
    uid: 2062
    gid: 2062
  - app: 'torrent_qbt'
@@ -79,12 +79,17 @@ users:
    groupname: 'radarr_uhd'
    uid: 2051
    gid: 2051
+ - app: 'radarr_anime'
+   username: 'radarr_anime'
+   groupname: 'radarr_anime'
+   uid: 2052
+   gid: 2052
  - app: 'recyclarr'
    username: 'recyclarr'
    groupname: 'recyclarr'
    uid: 2020
    gid: 2020
- - app: 'Watchtower'
+ - app: 'watchtower'
    username: 'watchtower'
    groupname: 'watchtower'
    uid: 9090
