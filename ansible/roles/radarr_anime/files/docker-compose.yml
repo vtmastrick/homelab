@@ -1,0 +1,26 @@
+---
+version: "2.1"
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr_anime
+    environment:
+      - PUID=2052
+      - PGID=2052
+      - TZ=America/New_York
+    volumes:
+      - ./config/:/config
+      - /mnt/radarr_anime/movies:/data/movies #optional
+      - /mnt/radarr_anime/downloads:/data/downloads #optional
+      - /mnt/radarr_anime/torrents:/data/torrents/downloads #optional
+    ports:
+      - 7876:7878
+    restart: unless-stopped
+    dns:
+      - 10.10.125.87
+      - 1.1.1.1
+
+networks:
+  default:
+    name: overlay_arr_network
+    external: true

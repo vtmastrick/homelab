@@ -1,7 +1,7 @@
 ---
 - name: include users
   include_vars:
-    file: users.yaml
+    file: users.yml
 
 - name: include map
   include_vars:

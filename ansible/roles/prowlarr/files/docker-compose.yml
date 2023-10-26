@@ -3,6 +3,7 @@ version: "2.1"
 services:
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
+    network_mode: "container:gluetun"
     container_name: prowlarr
     environment:
       - PUID=2010
@@ -10,14 +11,4 @@ services:
       - TZ=America/New_York
     volumes:
       - /opt/docker-compose/prowlarr/config/:/config
-    ports:
-      - 9696:9696
     restart: unless-stopped
-    dns:
-      - 10.10.125.87
-      - 1.1.1.1
-
-networks:
-  default:
-    name: overlay_arr_network
-    external: true
