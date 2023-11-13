@@ -44,6 +44,11 @@ users:
    groupname: 'viewtube'
    uid: 5015
    gid: 5015
+ - app: 'Piped'
+   username: 'piped'
+   groupname: 'piped'
+   uid: 5017
+   gid: 5017
  - app: 'sonarr_hd'
    username: 'sonarr_hd'
    groupname: 'sonarr_hd'
@@ -94,3 +99,8 @@ users:
    groupname: 'watchtower'
    uid: 9090
    gid: 9090
+ - app: 'invidious'
+   username: 'invidious'
+   groupname: 'invidious'
+   uid: 6000
+   gid: 6000

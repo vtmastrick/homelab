@@ -1,0 +1,35 @@
+- name: include vault
+  include_vars:
+    file: vault.yml
+
+- name: include vars
+  include_vars:
+    file: ../vars/main.yml
+
+- name: create location for config file
+  file:
+    path: /opt/docker-compose/invidious/
+    owner: invidious
+    group: invidious
+    state: directory
+
+- command: git reset --hard origin/master
+  become: true
+  become_user: invidious
+  args:
+    chdir: /opt/docker-compose/invidious/
+
+- name: pull repo
+  become: true
+  become_user: invidious
+  git:
+    repo: https://github.com/iv-org/invidious.git
+    dest: /opt/docker-compose/invidious/
+    version: master
+    
+- name: deploy environment file
+  template:
+    src: ../templates/.env
+    dest: /opt/docker-compose/invidious/.env
+    owner: invidious
+    group: invidious    

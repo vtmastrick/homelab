@@ -1,0 +1,2 @@
+---
+invidious_hmac_key: "{{ secret_invidious_hmac_key }}"

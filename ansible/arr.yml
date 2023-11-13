@@ -1,26 +1,3 @@
-- hosts: homelab01
-  become: yes
-  become_method: sudo
-  roles:
-    - ansible_client
-    - docker
-  tasks:
-    - set_fact:
-        applications:
-#          - name : ArchiveBox
-#          - name : libreSpeed
-          - name : glances
-#          - name : Ghostfolio
-#          - name : Syncthing
-#          - name : ViewTube
-
-    - name: setup application
-      include_tasks:
-        file: tasks/setup_application.yml
-      vars:
-        application: "{{ item }}"
-      with_items: "{{ applications }}"
-
 - hosts: arr
   become: yes
   become_method: sudo

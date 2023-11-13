@@ -1,0 +1,21 @@
+- name: include vault
+  include_vars:
+    file: vault.yml
+
+- name: include vars
+  include_vars:
+    file: ../vars/main.yml
+
+- name: create location for config file
+  file:
+    path: /opt/docker-compose/piped/
+    owner: piped
+    group: piped
+    state: directory
+
+- name: deploy configuration file
+  template:
+    src: ../templates/config.properties
+    dest: /opt/docker-compose/piped/config.properties
+    owner: piped
+    group: piped
