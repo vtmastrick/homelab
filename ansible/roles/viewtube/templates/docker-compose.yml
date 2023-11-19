@@ -6,12 +6,14 @@ services:
     # Or use mauriceo/viewtube:dev for the development version
     image: mauriceo/viewtube:latest
     # ViewTube will not start until the database and redis are ready
+    container_name: viewtube
     depends_on:
       - viewtube-mongodb
       - viewtube-redis
     # Make sure all services are in the same network
     networks:
       - viewtube
+      - nginx-bridge
     volumes:
       # This will map ViewTube's data directory to the local folder ./data/viewtube/
       - /mnt/viewtube/data:/data
@@ -24,6 +26,7 @@ services:
   viewtube-mongodb:
     restart: unless-stopped
     image: mongo:4.4.6
+    container_name: viewtube-mongodb
     networks:
       - viewtube
     volumes:
@@ -31,6 +34,7 @@ services:
 
   viewtube-redis:
     restart: unless-stopped
+    container_name: viewtube-redis
     image: redis:7
     networks:
       - viewtube
@@ -39,3 +43,6 @@ services:
 
 networks:
   viewtube:
+  nginx-bridge:
+    external: true  
+  

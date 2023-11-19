@@ -1,13 +1,13 @@
 [Unit]
-Description={{ application.name }} with Docker
+Description={{ app_service_name }} with Docker
 Requires=docker.service
 
 [Service]
-User={{ application.name | lower }}
-Group={{ application.name | lower }}
+User={{ app_service_name | lower }}
+Group={{ app_service_name | lower }}
 Restart=always
-ExecStart=/usr/bin/docker compose -f /opt/docker-compose/{{ application.name | lower }}/docker-compose.yml up
-ExecStop=/usr/bin/docker compose -f /opt/docker-compose/{{ application.name | lower }}/docker-compose.yml down
+ExecStart=/usr/bin/docker compose -f /opt/docker-compose/{{ app_service_name | lower }}/docker-compose.yml up
+ExecStop=/usr/bin/docker compose -f /opt/docker-compose/{{ app_service_name | lower }}/docker-compose.yml down
 
 [Install]
 WantedBy=default.target

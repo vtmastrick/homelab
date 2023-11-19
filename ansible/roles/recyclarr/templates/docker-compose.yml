@@ -7,8 +7,9 @@ services:
       - ./config:/config
     environment:
       - TZ=America/New_York
+    networks:
+      - overlay_arr_network
 
 networks:
-  default:
-    name: overlay_arr_network
+  overlay_arr_network:
     external: true

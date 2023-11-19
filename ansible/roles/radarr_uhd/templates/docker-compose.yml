@@ -16,11 +16,13 @@ services:
     ports:
       - 7879:7878
     restart: unless-stopped
-    dns:
-      - 10.10.125.87
-      - 1.1.1.1
+    networks:
+      - overlay_arr_network
+      - nginx-bridge
 
 networks:
-  default:
-    name: overlay_arr_network
+  overlay_arr_network:
     external: true
+  nginx-bridge:
+    external: true
+
