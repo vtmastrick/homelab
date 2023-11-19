@@ -6,16 +6,31 @@
   include_vars:
     file: ../vars/main.yml
 
-- name: create location for config file
+- name: create root directory
   file:
     path: /opt/docker-compose/piped/
     owner: piped
     group: piped
     state: directory
+    
+- name: create location for config file
+  file:
+    path: /opt/docker-compose/piped/config/
+    owner: piped
+    group: piped
+    state: directory    
+
+- name: copy piped config
+  copy:
+    src: "{{ item }}"
+    dest: /opt/docker-compose/piped/config
+    owner: nginx
+    group: nginx
+  with_fileglob: ../files/config/*.conf
 
 - name: deploy configuration file
   template:
     src: ../templates/config.properties
-    dest: /opt/docker-compose/piped/config.properties
+    dest: /opt/docker-compose/piped/config/config.properties
     owner: piped
     group: piped

@@ -1,13 +1,29 @@
+- name: include users
+  include_vars:
+    file: users.yml
+
+- name: include map
+  include_vars:
+    file: maps.yml
+
 - name: lower application name
   set_fact:
     app_name_lower: "{{ application.name | lower }}"
 
+- name: get application config
+  set_fact:
+    app_config: "{{ users | selectattr('app', 'equalto', app_name_lower) | first }}"
+
+- name: get application id
+  set_fact:
+    app_service_name : "{{ app_config.servicename | default(app_name_lower) }}"
+    
 - name: vars
   set_fact:
     pre_path:  "roles/{{ app_name_lower }}/tasks/pre.yml"
     post_path: "roles/{{ app_name_lower }}/tasks/post.yml"
-    service_name: "docker-compose.{{ app_name_lower }}.service"
-    compose_path: "/opt/docker-compose/{{ app_name_lower }}/docker-compose.yml"
+    service_name: "docker-compose.{{ app_service_name }}.service"
+    compose_path: "/opt/docker-compose/{{ app_service_name }}/docker-compose.yml"
 
 - name: vars2
   set_fact:
@@ -17,7 +33,7 @@
   include_tasks:
     file: tasks/user_and_group.yml
   vars:
-    app: "{{ application.name }}"
+    app: "{{ app_name_lower }}"
 
 - name: Check for prereqs
   become: no
@@ -31,7 +47,7 @@
 
 - name: add user to docker group
   user:
-    name: "{{ app_name_lower }}"
+    name: "{{ app_config.username }}"
     groups: docker
     append: yes
 
@@ -39,15 +55,15 @@
   file:
     path: "{{ compose_path | dirname }}"
     state: directory
-    owner: "{{ app_name_lower }}"
-    group: "{{ app_name_lower }}"
+    owner: "{{ app_config.username }}"
+    group: "{{ app_config.groupname }}"
 
 - name: Copy compose file
-  copy:
-    src: "roles/{{ app_name_lower }}/files/docker-compose.yml"
+  template:
+    src: "roles/{{ app_name_lower }}/templates/docker-compose.yml"
     dest: "{{ compose_path }}"
-    owner: "{{ app_name_lower }}"
-    group: "{{ app_name_lower }}"
+    owner: "{{ app_config.username }}"
+    group: "{{ app_config.groupname }}"
   register: compose
 
 - name: Check for postreqs

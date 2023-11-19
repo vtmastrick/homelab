@@ -1,0 +1,28 @@
+---
+version: "2.1"
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:develop
+    container_name: sonarr_uhd
+    environment:
+      - PUID=2061
+      - PGID=2061
+      - TZ=America/New_York
+    volumes:
+      - ./config/:/config
+      - /mnt/sonarr_uhd/tv:/data/tv #optional
+      - /mnt/sonarr_uhd/downloads:/data/downloads #optional
+      - /mnt/sonarr_uhd/torrents:/data/torrents/downloads #optional
+    ports:
+      - 8988:8989
+    restart: unless-stopped
+    networks:
+      - overlay_arr_network
+      - nginx-bridge
+
+networks:
+  overlay_arr_network:
+    external: true
+  nginx-bridge:
+    external: true
+

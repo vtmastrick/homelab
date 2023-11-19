@@ -1,0 +1,37 @@
+---
+version: "2.1"
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    environment:
+      - PUID=9030
+      - PGID=9030
+      - TZ=America/New_York
+    volumes:
+      - /opt/docker-compose/nginx/config/:/etc/nginx/conf.d/:ro
+      - /opt/docker-compose/nginx/certbot/www/:/var/www/certbot/:ro
+      - /opt/docker-compose/nginx/certbot/conf/:/etc/nginx/ssl/:ro
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped
+    networks:
+      - nginx
+      - nginx-bridge
+
+  certbot:
+    image: certbot/dns-cloudflare
+    container_name: certbot
+    volumes:
+      - /opt/docker-compose/nginx/certbot/www/:/var/www/certbot/:rw
+      - /opt/docker-compose/nginx/certbot/conf/:/etc/letsencrypt/:rw
+      - /home/ansible/.secrets/cloudflare.ini:/home/root/.secrets/cloudflare.ini:ro
+
+networks:
+  nginx:
+    name: nginx
+    external: true
+  nginx-bridge:
+    name: nginx-bridge
+    external: true    

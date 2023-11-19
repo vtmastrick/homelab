@@ -4,7 +4,7 @@ users:
    groupname: 'glances'
    uid: 3005
    gid: 3005
- - app: 'libreSpeed'
+ - app: 'librespeed'
    username: 'librespeed'
    groupname: 'librespeed'
    uid: 5005
@@ -14,37 +14,37 @@ users:
    groupname: 'pyload'
    uid: 5010
    gid: 5010
- - app: 'ArchiveBox'
+ - app: 'archivebox'
    username: 'archivebox'
    groupname: 'archivebox'
    uid: 5020
    gid: 5020
- - app: 'Ghostfolio'
+ - app: 'ghostfolio'
    username: 'ghostfolio'
    groupname: 'ghostfolio'
    uid: 5040
    gid: 5040
- - app: 'Syncthing'
+ - app: 'syncthing'
    username: 'syncthing'
    groupname: 'syncthing'
    uid: 5050
    gid: 5050
- - app: 'Prowlarr'
+ - app: 'prowlarr'
    username: 'prowlarr'
    groupname: 'prowlarr'
    uid: 2010
    gid: 2010
- - app: 'NZBGet'
+ - app: 'nzbget'
    username: 'nzbget'
    groupname: 'nzbget'
    uid: 2080
    gid: 2080
- - app: 'ViewTube'
+ - app: 'viewtube'
    username: 'viewtube'
    groupname: 'viewtube'
    uid: 5015
    gid: 5015
- - app: 'Piped'
+ - app: 'piped'
    username: 'piped'
    groupname: 'piped'
    uid: 5017
@@ -99,6 +99,18 @@ users:
    groupname: 'watchtower'
    uid: 9090
    gid: 9090
+ - app: 'nginx_arr'
+   servicename: nginx
+   username: 'nginx'
+   groupname: 'nginx'
+   uid: 9030
+   gid: 9030
+ - app: 'nginx_stream'
+   servicename: nginx
+   username: 'nginx'
+   groupname: 'nginx'
+   uid: 9030
+   gid: 9030
  - app: 'invidious'
    username: 'invidious'
    groupname: 'invidious'

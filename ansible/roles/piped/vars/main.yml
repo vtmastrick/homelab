@@ -1,2 +1,2 @@
 ---
-invidious_hmac_key: "{{ secret_invidious_hmac_key }}"
+piped_hibernate_key: "{{ secret_piped_hibernate_key }}"

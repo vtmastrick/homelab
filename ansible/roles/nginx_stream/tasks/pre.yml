@@ -1,0 +1,53 @@
+- name: create location for base
+  file:
+    path: /opt/docker-compose/nginx
+    owner: nginx
+    group: nginx
+    state: directory
+
+- name: create location for certbot
+  file:
+    path: /opt/docker-compose/nginx/certbot
+    owner: nginx
+    group: nginx
+    state: directory
+
+- name: create location for config
+  file:
+    path: /opt/docker-compose/nginx/config
+    owner: nginx
+    group: nginx
+    state: directory
+    
+- name: create location for config
+  file:
+    path: /opt/docker-compose/nginx/config/sites-stream
+    owner: nginx
+    group: nginx
+    state: directory    
+    
+- name: copy nginx host config
+  copy:
+    src: "{{ item }}"
+    dest: /opt/docker-compose/nginx/config
+    owner: nginx
+    group: nginx
+  with_fileglob: ../files/config/*.conf
+  
+- name: copy nginx host config
+  copy:
+    src: "{{ item }}"
+    dest: /opt/docker-compose/nginx/config/sites-stream
+    owner: nginx
+    group: nginx
+  with_fileglob: ../files/config/sites-stream/*.conf  
+  
+- name: create nginx network
+  docker_network:
+    name: nginx
+  
+- name: create nginx bridge network
+  docker_network:
+    name: nginx-bridge
+    driver_options:
+      com.docker.network.bridge.name: nginx-bridge

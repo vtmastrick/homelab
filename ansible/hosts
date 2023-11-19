@@ -7,5 +7,5 @@ all:
       ansible_host: homelab01.local.mastrick.com
     arr:
       ansible_host: homelab01.local.mastrick.com
-    freetube:
+    stream:
       ansible_host: homelab01.local.mastrick.com
