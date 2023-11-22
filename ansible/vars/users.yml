@@ -29,6 +29,11 @@ users:
    groupname: 'syncthing'
    uid: 5050
    gid: 5050
+ - app: 'paperless_ngx'
+   username: 'paperless_ngx'
+   groupname: 'paperless_ngx'
+   uid: 5060
+   gid: 5060
  - app: 'prowlarr'
    username: 'prowlarr'
    groupname: 'prowlarr'
