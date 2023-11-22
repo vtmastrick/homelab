@@ -7,11 +7,12 @@
   tasks:
     - set_fact:
         applications:
-          - name : ArchiveBox
-          - name : libreSpeed
-          - name : glances
-          - name : Ghostfolio
-          - name : Syncthing
+          #- name : ArchiveBox
+          #- name : libreSpeed
+          #- name : glances
+          #- name : Ghostfolio
+          #- name : Syncthing
+          - name : Paperless_NGX
 
     - name: setup application
       include_tasks:
