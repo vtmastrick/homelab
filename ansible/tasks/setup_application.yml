@@ -5,7 +5,7 @@
 - name: include map
   include_vars:
     file: maps.yml
-
+    
 - name: lower application name for "{{ application.name }}"
   set_fact:
     app_name_lower: "{{ application.name | lower }}"
@@ -17,7 +17,8 @@
 - name: get application id for "{{ application.name }}"
   set_fact:
     app_service_name : "{{ app_config.servicename | default(app_name_lower) }}"
-    
+
+   
 - name: get mount names for "{{ application.name }}"
   set_fact:
     app_mount_names : "{{ app_config.mounts | join(' ') }}"
@@ -44,6 +45,28 @@
     file: tasks/user_and_group.yml
   vars:
     app: "{{ app_name_lower }}"
+
+- name: "Include secrets"
+  include_vars:
+    file: vault.yml
+
+- name: get cifs util for path
+  apt:
+    pkg:
+      - cifs-utils
+    state: present
+
+- name: Add mounts for "{{ application.name }}"
+  include_tasks:
+    file: tasks/add_mount.yml
+  vars:
+    task_add_mount__app_config: "{{ app_config }}"
+    task_add_mount__mount_config: "{{ item_mount }}"
+    task_add_mount__samba_creds: "{{ vault_samba_users | selectattr('username', 'equalto', item_mount.username) | first }}"
+  with_items: "{{ app_config.mounts }}"
+  loop_control:
+    loop_var: item_mount
+  when: app_config.mounts is defined
 
 - name: Check for prereqs for "{{ application.name }}"
   become: no

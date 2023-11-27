@@ -1,26 +1,3 @@
-- name: "Set variables"
-  set_fact:
-    smb:
-      username : ArchiveBox
-      password : test
-    user:
-      uid : 5020
-      gid : 5020
-
-- set_fact:
-    fstab:
-      user: "archivebox"
-      group: "archivebox"
-      mount: "/mnt/archivebox"
-      device: "//10.10.125.201/ArchiveBox"
-      fstype: "cifs"
-      options: "username={{ smb.username }},password={{ smb.password }},iocharset=utf8,uid={{ user.uid }},gid={{ user.gid }},file_mode=0755,dir_mode=0755,vers=3.1.1"
-
-- include_tasks:
-    file: tasks/fstab.yml
-  vars:
-    entry: "{{ fstab }}"
-
 - name: archive box local
   file:
     path: /home/archivebox/data

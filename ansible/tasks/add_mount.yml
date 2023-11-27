@@ -1,0 +1,10 @@
+- include_tasks:
+    file: tasks/fstab.yml
+  vars:
+    entry:
+      user: "{{ task_add_mount__app_config.username }}"
+      group: "{{ task_add_mount__app_config.groupname }}"
+      mount: "{{ task_add_mount__mount_config.mount }}"
+      device: "{{ task_add_mount__mount_config.device }}"
+      fstype: "{{ task_add_mount__mount_config.fstype }}"
+      options: "username={{ task_add_mount__mount_config.username }},password={{ task_add_mount__samba_creds.password }},iocharset=utf8,uid={{ task_add_mount__app_config.uid }},gid={{ task_add_mount__app_config.gid }},file_mode=0755,dir_mode=0755,vers=3.1.1"
