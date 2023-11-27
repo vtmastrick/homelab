@@ -144,12 +144,54 @@ sonarr:
 
   anime:
     # Set the URL/API Key to your actual instance
-    base_url: http://sonarr_anime:8989
+    base_url: http://sonarr_anime:8989/sonarr/anime
     api_key: {{ sonarr_anime_api_key }}
 
     # Quality definitions from the guide to sync to Sonarr. Choices: series, anime
     quality_definition:
       type: anime
+
+    quality_profiles:
+      - name: Remux-1080p-Anime
+        reset_unmatched_scores:
+          enabled: true
+          except:
+            - mastrick
+        upgrade:
+          allowed: true
+          until_quality: Bluray-1080p
+          until_score: 10000
+        min_format_score: 0
+        score_set: anime-sonarr
+        quality_sort: top
+        qualities:
+          - name: Bluray-1080p
+            qualities:
+              - Bluray-1080p Remux
+              - Bluray-1080p
+          - name: WEB 1080p
+            qualities:
+              - WEBRip-1080p
+              - WEBDL-1080p
+              - HDTV-1080p
+          - name: Bluray-720p
+          - name: WEB 720p
+            qualities:
+              - WEBRip-720p
+              - WEBDL-720p
+              - HDTV-720p
+          - name: Bluray-480p
+          - name: DVD
+          - name: WEB 480p
+            qualities:
+              - WEBRip-480p
+              - WEBDL-480p
+          - name: SDTV
+
+    media_naming:
+      series: plex
+      episodes:
+        rename: true
 
     custom_formats:
       # Anime (Uncomment below if you want it)
@@ -165,12 +207,7 @@ sonarr:
           - c81bbfb47fed3d5a3ad027d077f889de # Anime BD Tier 08 (Mini Encodes)
           - e0014372773c8f0e1bef8824f00c7dc4 # Anime Web Tier 01 (Muxers)
           - 19180499de5ef2b84b6ec59aae444696 # Anime Web Tier 02 (Top FanSubs)
-          - e6258996055b9fbab7e9cb2f75819294 # WEB Tier 01
-          - 58790d4e2fdcd9733aa7ae68ba2bb503 # WEB Tier 02
           - c27f2ae6a4e82373b0f1da094e2489ad # Anime Web Tier 03 (Official Subs)
-          - d84935abd3f8556dcd51d4f27e22d0a6 # WEB Tier 03
-          - 9965a052eb87b0d10313b1cea89eb451 # Remux Tier 01
-          - 8a1d0c3d7497e741736761a1da866a2e # Remux Tier 02
           - 4fd5528a3a8024e6b49f9c67053ea5f3 # Anime Web Tier 04 (Official Subs)
           - 29c2a13d091144f63307e4a8ce963a39 # Anime Web Tier 05 (FanSubs)
           - dc262f88d74c651b12e9d90b39f6c753 # Anime Web Tier 06 (FanSubs)
@@ -187,6 +224,36 @@ sonarr:
           - 418f50b10f1907201b6cfdf881f467b7 # Anime Dual Audio
           - 9c14d194486c4014d422adc64092d794 # Dubs Only
           - 07a32f77690263bb9fda1842db7e273f # VOSTFR
+        quality_profiles:
+          - name: Remux-1080p-Anime
+
+      - trash_ids:
+          - e6258996055b9fbab7e9cb2f75819294 # WEB Tier 01
+        quality_profiles:
+          - name: Remux-1080p-Anime
+            score: 350
+      - trash_ids:
+          - 58790d4e2fdcd9733aa7ae68ba2bb503 # WEB Tier 02
+        quality_profiles:
+          - name: Remux-1080p-Anime
+            score: 150
+      - trash_ids:
+          - d84935abd3f8556dcd51d4f27e22d0a6 # WEB Tier 03
+        quality_profiles:
+          - name: Remux-1080p-Anime
+            score: 150
+      - trash_ids:
+          - 9965a052eb87b0d10313b1cea89eb451 # Remux Tier 01
+        quality_profiles:
+          - name: Remux-1080p-Anime
+            score: 1050
+      - trash_ids:
+          - 8a1d0c3d7497e741736761a1da866a2e # Remux Tier 02
+        quality_profiles:
+          - name: Remux-1080p-Anime
+            score: 1000
+
+      - trash_ids:
           # Anime Streaming Services
           - 3e0b26604165f463f3e8e192261e7284 # CR
           - 89358767a60cc28783cdc3d0be9388a4 # DSNP
@@ -198,6 +265,8 @@ sonarr:
           - 7dd31f3dee6d2ef8eeaa156e23c3857e # B-Global
           - 4c67ff059210182b59cdd41697b8cb08 # Bilibili
           - 570b03b3145a25011bf073274a407259 # HIDIVE
+        quality_profiles:
+          - name: Remux-1080p-Anime
 
 # Configuration specific to Radarr.
 radarr:
@@ -257,6 +326,7 @@ radarr:
           - e36a0ba1bc902b26ee40818a1d59b8bd # PMTP
           - c2863d2a50c9acad1fb50e53ece60817 # STAN
           - fbca986396c5e695ef7b2def3c755d01 # OViD
+
         # Uncomment the below properties to specify one or more quality profiles that should be
         # updated with scores from the guide for each custom format. Without this, custom formats
         # are synced to Radarr but no scores are set in any quality profiles.
@@ -387,16 +457,16 @@ radarr:
               - HDTV-1080p
           - name: Bluray-720p
           - name: WEB 720p
-           qualities:
+            qualities:
               - WEBRip-720p
               - WEBDL-720p
               - HDTV-720p
           - name: Bluray-480p
+          - name: DVD
           - name: WEB 480p
             qualities:
               - WEBRip-480p
               - WEBDL-480p
-          - name: DVD
           - name: SDTV
 
     custom_formats:
