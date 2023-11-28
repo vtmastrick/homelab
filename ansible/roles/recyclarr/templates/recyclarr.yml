@@ -25,9 +25,71 @@ sonarr:
     quality_definition:
       type: series
 
+    quality_profiles:
+      - name: 1080p
+        reset_unmatched_scores:
+          enabled: true
+          except:
+            - mastrick
+            - Special Edition
+        upgrade:
+          allowed: true
+          until_quality: WEB 1080p
+          until_score: 10000
+        min_format_score: 0
+        score_set: hd-web-sonarr
+        quality_sort: top
+        qualities:
+          - name: WEB 1080p
+            qualities:
+              - WEBRip-1080p
+              - WEBDL-1080p
+          - name: HDTV-1080p
+          - name: Bluray-720p
+          - name: WEB 720p
+            qualities:
+              - WEBRip-720p
+              - WEBDL-720p
+
+      - name: 1080p-Archive
+        reset_unmatched_scores:
+          enabled: true
+          except:
+            - mastrick
+            - Special Edition
+        upgrade:
+          allowed: true
+          until_quality: Bluray-1080p Remux
+          until_score: 10000
+        min_format_score: 0
+        score_set: hd-archive-sonarr
+        quality_sort: top
+        qualities:
+          - name: Bluray-1080p Remux
+          - name: Bluray-1080p
+          - name: WEB 1080p
+            qualities:
+              - WEBRip-1080p
+              - WEBDL-1080p
+          - name: HDTV-1080p
+          - name: Bluray-720p
+          - name: WEB 720p
+            qualities:
+              - WEBRip-720p
+              - WEBDL-720p
+          - name: HDTV-720p
+
+    media_naming:
+      series: plex
+      episodes:
+        rename: true
+
     # Release profiles from the guide to sync to Sonarr v3 (Sonarr v4 does not use this!)
     # Use `recyclarr list release-profiles` for values you can put here.
     # https://trash-guides.info/Sonarr/Sonarr-Release-Profile-RegEx/
+    delete_old_custom_formats: true
+    replace_existing_custom_formats: true
+    
     custom_formats:
       # Series
       - trash_ids:
@@ -73,6 +135,9 @@ sonarr:
           - 58790d4e2fdcd9733aa7ae68ba2bb503 # WEB Tier 02
           - d84935abd3f8556dcd51d4f27e22d0a6 # WEB Tier 03
           - d0c516558625b04b363fa6c5c2c7cfd4 # WEB Scene
+        quality_profiles:
+          - name: 1080p
+          - name: 1080p-Archive
 
   uhd:
     # Set the URL/API Key to your actual instance
@@ -83,9 +148,39 @@ sonarr:
     quality_definition:
       type: series
 
+    quality_profiles:
+      - name: Ultra-HD
+        reset_unmatched_scores:
+          enabled: true
+          except:
+            - mastrick
+        upgrade:
+          allowed: true
+          until_quality: Bluray|WEB 2160p
+          until_score: 10000
+        min_format_score: 0
+        score_set: hd-archive-sonarr
+        quality_sort: top
+        qualities:
+          - name: Bluray|WEB 2160p
+            qualities:
+              - Bluray-2160p Remux
+              - Bluray-2160p
+              - WEBDL-2160p
+              - WEBRip-2160p
+              - HDTV-2160p
+
+    media_naming:
+      series: plex
+      episodes:
+        rename: true
+
     # Release profiles from the guide to sync to Sonarr v3 (Sonarr v4 does not use this!)
     # Use `recyclarr list release-profiles` for values you can put here.
     # https://trash-guides.info/Sonarr/Sonarr-Release-Profile-RegEx/
+    delete_old_custom_formats: true
+    replace_existing_custom_formats: true
+    
     custom_formats:
       # Series
       - trash_ids:
@@ -141,6 +236,8 @@ sonarr:
           - 17e889ce13117940092308f48b48b45b # HLG
           #Optional
           - 2016d1676f5ee13a5b7257ff86ac9a93 # SDR
+        quality_profiles:
+          - name: Ultra-HD
 
   anime:
     # Set the URL/API Key to your actual instance
@@ -192,6 +289,9 @@ sonarr:
       series: plex
       episodes:
         rename: true
+
+    delete_old_custom_formats: true
+    replace_existing_custom_formats: true
 
     custom_formats:
       # Anime (Uncomment below if you want it)
@@ -272,16 +372,60 @@ sonarr:
 radarr:
   movies_hd:
     # Set the URL/API Key to your actual instance
-    base_url: http://radarr_hd:7878
+    base_url: http://radarr_hd:7878/radarr/hd
     api_key: {{ radarr_hd_api_key }}
 
-    # Which quality definition in the guide to sync to Radarr. Only choice right now is 'movie'
     quality_definition:
       type: movie
 
-    # Set to 'true' to automatically remove custom formats from Radarr when they are removed from
-    # the guide or your configuration. This will NEVER delete custom formats you manually created!
     delete_old_custom_formats: true
+    replace_existing_custom_formats: true
+
+    media_naming:
+      folder: plex
+      movie:
+        rename: true
+        standard: default
+
+    quality_profiles:
+      - name: Remux + WEB 1080p
+        reset_unmatched_scores:
+          enabled: true
+          except:
+            - mastrick
+        upgrade:
+          allowed: true
+          until_quality: Remux-1080p
+          until_score: 10000
+        min_format_score: 0
+        score_set: hd-radarr
+        quality_sort: top
+        qualities:
+          - name: Remux-1080p
+          - name: Bluray|WEB 1080p
+            qualities:
+              - Bluray-1080p
+              - WEBRip-1080p
+              - WEBDL-1080p
+      - name: Remux + WEB 1080p + UHD
+        reset_unmatched_scores:
+          enabled: true
+          except:
+            - mastrick
+        upgrade:
+          allowed: true
+          until_quality: Remux-1080p
+          until_score: 10000
+        min_format_score: 0
+        score_set: hd-radarr
+        quality_sort: top
+        qualities:
+          - name: Remux-1080p
+          - name: Bluray|WEB 1080p
+            qualities:
+              - Bluray-1080p
+              - WEBRip-1080p
+              - WEBDL-1080p              
 
     custom_formats:
       # A list of custom formats to sync to Radarr.
@@ -326,24 +470,46 @@ radarr:
           - e36a0ba1bc902b26ee40818a1d59b8bd # PMTP
           - c2863d2a50c9acad1fb50e53ece60817 # STAN
           - fbca986396c5e695ef7b2def3c755d01 # OViD
-
-        # Uncomment the below properties to specify one or more quality profiles that should be
-        # updated with scores from the guide for each custom format. Without this, custom formats
-        # are synced to Radarr but no scores are set in any quality profiles.
-        #quality_profiles:
-        #  - name: Quality Profile 1
-        #  - name: Quality Profile 2
-        #    #score: -9999 # Optional score to assign to all CFs. Overrides scores in the guide.
-        #    #reset_unmatched_scores: true # Optionally set other scores to 0 if they are not listed in 'names' above.
+        quality_profiles:
+          - name: Remux + WEB 1080p
+          - name: Remux + WEB 1080p + UHD
 
   movies_uhd:
-    base_url: http://radarr_uhd:7878
+    base_url: http://radarr_uhd:7878/radarr/uhd
     api_key: {{ radarr_uhd_api_key }}
 
     quality_definition:
       type: movie
 
     delete_old_custom_formats: true
+    replace_existing_custom_formats: true
+
+    media_naming:
+      folder: plex
+      movie:
+        rename: true
+        standard: default
+
+    quality_profiles:
+      - name: Remux + WEB 2160p
+        reset_unmatched_scores:
+          enabled: true
+          except:
+            - mastrick
+        upgrade:
+          allowed: true
+          until_quality: Remux-1080p
+          until_score: 10000
+        min_format_score: 0
+        score_set: uhd-radarr
+        quality_sort: top
+        qualities:
+          - name: Remux-1080p
+          - name: Bluray|WEB 1080p
+            qualities:
+              - Bluray-1080p
+              - WEBRip-1080p
+              - WEBDL-1080p
 
     custom_formats:
       - trash_ids:
@@ -418,16 +584,17 @@ radarr:
           - e36a0ba1bc902b26ee40818a1d59b8bd # PMTP
           - c2863d2a50c9acad1fb50e53ece60817 # STAN
           - fbca986396c5e695ef7b2def3c755d01 # OViD
+        quality_profiles:
+          - name: Remux + WEB 2160p
 
   movies_anime:
-    base_url: http://radarr_anime:7878
+    base_url: http://radarr_anime:7878/radarr/anime
     api_key: {{ radarr_anime_api_key }}
 
     quality_definition:
       type: movie
 
     delete_old_custom_formats: true
-
     replace_existing_custom_formats: true
 
     media_naming:
@@ -440,6 +607,8 @@ radarr:
       - name: Remux-1080p-Anime
         reset_unmatched_scores:
           enabled: true
+          except:
+            - mastrick
         upgrade:
           allowed: true
           until_quality: Remux-1080p

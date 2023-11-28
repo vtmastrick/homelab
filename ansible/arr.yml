@@ -17,7 +17,7 @@
           - name : Radarr_HD
           - name : Radarr_UHD
           - name : Radarr_Anime
-#          - name : Recyclarr
+          - name : Recyclarr
 #          - name : Nginx_Arr
 
     - name: setup application

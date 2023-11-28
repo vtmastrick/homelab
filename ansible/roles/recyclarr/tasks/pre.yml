@@ -16,6 +16,6 @@
 - name: deploy configuration file
   template:
     src: ../templates/recyclarr.yml
-    dest: /opt/docker-compose/recyclarr/config/recyclarr.xml
+    dest: /opt/docker-compose/recyclarr/config/recyclarr.yml
     owner: recyclarr
     group: recyclarr
