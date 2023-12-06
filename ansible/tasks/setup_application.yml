@@ -17,7 +17,6 @@
 - name: get application id for "{{ application.name }}"
   set_fact:
     app_service_name : "{{ app_config.servicename | default(app_name_lower) }}"
-
    
 - name: get mount names for "{{ application.name }}"
   set_fact:
@@ -35,10 +34,24 @@
     post_path: "roles/{{ app_name_lower }}/tasks/post.yml"
     service_name: "docker-compose.{{ app_service_name }}.service"
     compose_path: "/opt/docker-compose/{{ app_service_name }}/docker-compose.yml"
+    pre_path_templates: 
 
 - name: vars2 for "{{ application.name }}"
   set_fact:
     service_path: "/etc/systemd/system/{{ service_name }}"
+
+- name: "Include secrets"
+  include_vars:
+    file: vault.yml
+
+
+
+
+
+
+
+
+
 
 - name: create workspace for "{{ application.name }}"
   include_tasks:
@@ -46,15 +59,25 @@
   vars:
     app: "{{ app_name_lower }}"
 
-- name: "Include secrets"
-  include_vars:
-    file: vault.yml
+- name: create required directories for "{{ application.name }}"
+  file:
+    path: "{{ app_config.directory }}"
+    owner: "{{ app_config.username }}"
+    group: "{{ app_config.groupname }}"
+    state: directory
+  loop_control:
+    loop_var: item_directory
+  when: app_config.directory is defined
+
+
+
 
 - name: get cifs util for path
   apt:
     pkg:
       - cifs-utils
     state: present
+  when: app_config.mounts is defined
 
 - name: Add mounts for "{{ application.name }}"
   include_tasks:
@@ -68,15 +91,24 @@
     loop_var: item_mount
   when: app_config.mounts is defined
 
-- name: Check for prereqs for "{{ application.name }}"
-  become: no
-  local_action: stat path="{{ pre_path }}"
+
+
+
+- name: Copy pre req templates for "{{ application.name }}"
+  template:
+    src: "templates/{{ application_group }}/{{app_name_lower}}.pre.{{ prereq_templates.template_name }}"
+    dest: "{{ prereq_templates.destination }}"
+    owner: "{{ app_config.username }}"
+    group: "{{ app_config.groupname }}"
+  with_items: "{{ app_config.prereq }}"
+  loop_control:
+    loop_var: prereq_templates
+  when: app_config.prereq is defined  
   register: prereq
 
-- name: Do prereqs for "{{ application.name }}"
-  include_tasks:
-    file: "{{ pre_path }}"
-  when: prereq.stat.exists
+
+
+
 
 - name: add user to docker group for "{{ application.name }}"
   user:
@@ -93,11 +125,17 @@
 
 - name: Copy compose file for "{{ application.name }}"
   template:
-    src: "roles/{{ app_name_lower }}/templates/docker-compose.yml"
+    src: "templates/{{ application_group }}/{{ app_name_lower }}.docker-compose.yml"
     dest: "{{ compose_path }}"
     owner: "{{ app_config.username }}"
     group: "{{ app_config.groupname }}"
   register: compose
+
+
+
+
+
+
 
 - name: Check for postreqs for "{{ application.name }}"
   become: no
@@ -111,9 +149,16 @@
   register:
     post_deploy_action
 
+
+
+
+
+
+
+
 - name: Deploy service for "{{ application.name }}"
   template:
-    src: ../templates/docker-compose.service
+    src: ../templates/core/docker-compose.service
     dest: "{{ service_path }}"
   register:
     service

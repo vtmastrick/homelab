@@ -19,6 +19,7 @@
         file: tasks/setup_application.yml
       vars:
         application: "{{ application_name }}"
+        application_group: "homelab"
       with_items: "{{ applications }}"
       loop_control:
         loop_var: application_name

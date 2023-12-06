@@ -1,4 +1,4 @@
-- name: create directory
+- name: create directory "{{ entry.mount }}" for "{{ entry.user }}"
   file:
     path: "{{ entry.mount }}"
     state: directory

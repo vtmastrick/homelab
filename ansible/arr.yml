@@ -25,4 +25,5 @@
         file: tasks/setup_application.yml
       vars:
         application: "{{ item }}"
+        application_group: "arr"
       with_items: "{{ applications }}"

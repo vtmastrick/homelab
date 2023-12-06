@@ -1,2 +1,0 @@
----
-piped_hibernate_key: "{{ secret_piped_hibernate_key }}"

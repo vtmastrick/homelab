@@ -1,2 +1,0 @@
----
-prowlarr_api_key: "{{ secret_prowlarr_api_key }}"

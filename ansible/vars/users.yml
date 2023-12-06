@@ -25,6 +25,8 @@ users:
        device: '//10.10.125.201/archivebox'
        fstype: 'cifs'
        username: 'ArchiveBox'
+   directories:
+     - directory: /mnt/archivebox/data
  - app: 'ghostfolio'
    username: 'ghostfolio'
    groupname: 'ghostfolio'
@@ -36,6 +38,9 @@ users:
        device: '//10.10.125.202/ghostfolio'
        fstype: 'cifs'
        username: 'ghostfolio'
+   prereq:
+     - template_name: ".env"
+       destination: "/opt/docker-compose/ghostfolio/.env"     
  - app: 'syncthing'
    username: 'syncthing'
    groupname: 'syncthing'
@@ -58,11 +63,24 @@ users:
        device: '//10.10.125.201/paperless_ngx'
        fstype: 'cifs'
        username: 'paperless_ngx'
+   directories:
+     - directory: /mnt/paperless_ngx/media       
+     - directory: /mnt/paperless_ngx/export
+     - directory: /mnt/paperless_ngx/consume
+   prereq:
+     - template_name: "docker-compose.env"
+       destination: "/opt/docker-compose/paperless_ngx/docker-compose.env"     
  - app: 'prowlarr'
    username: 'prowlarr'
    groupname: 'prowlarr'
    uid: 2010
    gid: 2010
+   directories:
+     - /opt/docker-compose/prowlarr/
+     - /opt/docker-compose/prowlarr/config/
+   prereq:
+     - template_name: "config.xml"
+       destination: "/opt/docker-compose/prowlarr/config/config.xml"
  - app: 'nzbget'
    username: 'nzbget'
    groupname: 'nzbget'
@@ -73,19 +91,47 @@ users:
        servicename: 'mnt-nzbget.mount'
        device: '//10.10.125.202/nzb'
        fstype: 'cifs'
-       username: 'nzb'     
+       username: 'nzb'
+   directories:
+     - '/mnt/nzbget/downloads'
+     - '/mnt/nzbget/config'
+   prereq:
+     - template_name: "nzbget.conf"
+       destination: "/mnt/nzbget/config/nzbget.conf"
  - app: 'viewtube'
    username: 'viewtube'
    groupname: 'viewtube'
    uid: 5015
    gid: 5015
    mounts:
-     - 'mnt-viewtube.mount'   
+     - mount: '/mnt/viewtube'
+       servicename: 'mnt-viewtube.mount'
+       device: '//10.10.125.202/'
+       fstype: 'cifs'
+       username: 'viewtube'
+   directories:
+       - "/opt/docker-compose/viewtube/data"
  - app: 'piped'
    username: 'piped'
    groupname: 'piped'
    uid: 5017
    gid: 5017
+   directories:
+     - "/opt/docker-compose/piped"
+     - "/opt/docker-compose/piped/config/"
+   prereq:
+     - template_name: "config.properties"
+       destination: "/opt/docker-compose/piped/config/config.properties"
+     - template_name: "nginx.conf"
+       destination: "/opt/docker-compose/piped/config/nginx.conf"
+     - template_name: "pipedapi.conf"
+       destination: "/opt/docker-compose/piped/config/pipedapi.conf"
+     - template_name: "pipedfrontend.conf"
+       destination: "/opt/docker-compose/piped/config/pipedfrontend.conf"
+     - template_name: "pipedproxy.conf"
+       destination: "/opt/docker-compose/piped/config/pipedproxy.conf"
+     - template_name: "ytproxy.conf"
+       destination: "/opt/docker-compose/piped/config/ytproxy.conf"
  - app: 'sonarr_hd'
    username: 'sonarr_hd'
    groupname: 'sonarr_hd'
@@ -106,7 +152,7 @@ users:
        servicename: 'mnt-sonarr_hd-tv.mount'
        device: '//10.10.125.202/Videos/tv/hd'
        fstype: 'cifs'
-       username: 'sonarr_hd'       
+       username: 'sonarr_hd'
  - app: 'sonarr_uhd'
    username: 'sonarr_uhd'
    groupname: 'sonarr_uhd'
@@ -127,7 +173,7 @@ users:
        servicename: 'mnt-sonarr_uhd-tv.mount'
        device: '//10.10.125.202/Videos/tv/uhd'
        fstype: 'cifs'
-       username: 'sonarr_uhd'   
+       username: 'sonarr_uhd'
  - app: 'sonarr_anime'
    username: 'sonarr_anime'
    groupname: 'sonarr_anime'
@@ -144,11 +190,11 @@ users:
        device: '//10.10.125.202/torrent/downloads'
        fstype: 'cifs'
        username: 'sonarr_anime'
-     - mount: '/mnt/sonarr_anime/tv'
+     - mount: '/mnt/sonarr_anime/anime'
        servicename: 'mnt-sonarr_anime-tv.mount'
        device: '//10.10.125.202/Videos/tv/anime'
        fstype: 'cifs'
-       username: 'sonarr_anime' 
+       username: 'sonarr_anime'
  - app: 'torrent_qbt'
    username: 'torrent_qbt'
    groupname: 'torrent_qbt'
@@ -212,6 +258,8 @@ users:
    groupname: 'radarr_anime'
    uid: 2052
    gid: 2052
+   directories:
+     - '/mnt/radarr_anime'   
    mounts:
      - mount: '/mnt/radarr_anime/downloads'
        servicename: 'mnt-radarr_anime-downloads.mount'
@@ -227,12 +275,17 @@ users:
        servicename: 'mnt-radarr_anime-movies.mount'
        device: '//10.10.125.202/Videos/movies/anime'
        fstype: 'cifs'
-       username: 'radarr_anime'   
+       username: 'radarr_anime'
  - app: 'recyclarr'
    username: 'recyclarr'
    groupname: 'recyclarr'
    uid: 2020
    gid: 2020
+   directories:
+     - '/opt/docker-compose/recyclarr/config'
+   prereq:
+     - template_name: "recyclarr.yml"
+       destination: "/opt/docker-compose/recyclarr/config/recyclarr.yml"
  - app: 'watchtower'
    username: 'watchtower'
    groupname: 'watchtower'
