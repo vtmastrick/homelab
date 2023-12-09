@@ -3,7 +3,7 @@
     path: /opt/docker-compose/nginx
     owner: nginx
     group: nginx
-    state: directory
+    state: directory  
 
 - name: create location for certbot
   file:
@@ -19,28 +19,36 @@
     group: nginx
     state: directory
     
-- name: create location for config
+- name: create location for nginx location
   file:
-    path: /opt/docker-compose/nginx/config/sites-arr
+    path: "/opt/docker-compose/nginx/config/locations-{{ application_group }}"
     owner: nginx
     group: nginx
     state: directory    
     
-- name: copy nginx host config
-  copy:
-    src: "{{ item }}"
-    dest: /opt/docker-compose/nginx/config
-    owner: nginx
-    group: nginx
-  with_fileglob: ../files/config/*.conf
+#- name: copy nginx host config
+  #copy:
+  #  src: "{{ item }}"
+  #  dest: /opt/docker-compose/nginx/config
+  #  owner: nginx
+  #  group: nginx
+  #with_fileglob: ../files/core/nginx.*.conf
   
-- name: copy nginx host config
+- name: copy nginx server config
   copy:
     src: "{{ item }}"
-    dest: /opt/docker-compose/nginx/config/sites-arr
+    dest: "/opt/docker-compose/nginx/config/{{ item | basename | regex_replace('nginx.server.(.*)$', '\\1') }}" 
     owner: nginx
     group: nginx
-  with_fileglob: ../files/config/sites-arr/*.conf
+  with_fileglob: ../files/{{ application_group }}/nginx.server.*.conf
+  
+- name: copy nginx server config
+  copy:
+    src: "{{ item }}"
+    dest: "/opt/docker-compose/nginx/config/locations-{{ application_group }}/{{ item | basename | regex_replace('nginx.location.(.*)$', '\\1') }}" 
+    owner: nginx
+    group: nginx
+  with_fileglob: ../files/{{ application_group }}/nginx.location.*.conf
   
 - name: create nginx network
   docker_network:
@@ -51,3 +59,4 @@
     name: nginx-bridge
     driver_options:
       com.docker.network.bridge.name: nginx-bridge  
+    

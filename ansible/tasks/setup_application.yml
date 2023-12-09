@@ -1,3 +1,4 @@
+#vars
 - name: include users for "{{ application.name }}"
   include_vars:
     file: users.yml
@@ -47,18 +48,15 @@
 
 
 
-
-
-
-
-
-
+#home dir
 - name: create workspace for "{{ application.name }}"
   include_tasks:
     file: tasks/user_and_group.yml
   vars:
     app: "{{ app_name_lower }}"
 
+
+#required directories
 - name: create required directories for "{{ application.name }}"
   file:
     path: "{{ app_config.directory }}"
@@ -71,7 +69,7 @@
 
 
 
-
+#samba
 - name: get cifs util for path
   apt:
     pkg:
@@ -93,7 +91,7 @@
 
 
 
-
+#deploy files
 - name: Copy pre req templates for "{{ application.name }}"
   template:
     src: "templates/{{ application_group }}/{{app_name_lower}}.pre.{{ prereq_templates.template_name }}"
@@ -109,7 +107,7 @@
 
 
 
-
+#docker compose configuration
 - name: add user to docker group for "{{ application.name }}"
   user:
     name: "{{ app_config.username }}"
@@ -136,7 +134,7 @@
 
 
 
-
+#post reqs
 - name: Check for postreqs for "{{ application.name }}"
   become: no
   local_action: stat path="{{ post_path }}"
@@ -155,7 +153,7 @@
 
 
 
-
+#deploy and start service
 - name: Deploy service for "{{ application.name }}"
   template:
     src: ../templates/core/docker-compose.service

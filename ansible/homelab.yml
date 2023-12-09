@@ -23,4 +23,9 @@
       with_items: "{{ applications }}"
       loop_control:
         loop_var: application_name
-
+        
+    - name: setup application
+      include_tasks:
+        file: tasks/nginx.yml
+      vars:
+        application_group: "homelab"        

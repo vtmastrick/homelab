@@ -308,3 +308,7 @@ users:
    groupname: 'invidious'
    uid: 6000
    gid: 6000
+   prereq:
+     - template_name: ".env"
+       destination: "/opt/docker-compose/invidious/.env"
+   
