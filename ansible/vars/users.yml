@@ -291,13 +291,7 @@ users:
    groupname: 'watchtower'
    uid: 9090
    gid: 9090
- - app: 'nginx_arr'
-   servicename: nginx
-   username: 'nginx'
-   groupname: 'nginx'
-   uid: 9030
-   gid: 9030
- - app: 'nginx_stream'
+ - app: 'nginx'
    servicename: nginx
    username: 'nginx'
    groupname: 'nginx'
@@ -311,4 +305,3 @@ users:
    prereq:
      - template_name: ".env"
        destination: "/opt/docker-compose/invidious/.env"
-   

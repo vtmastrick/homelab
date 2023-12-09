@@ -24,15 +24,15 @@
     path: "/opt/docker-compose/nginx/config/locations-{{ application_group }}"
     owner: nginx
     group: nginx
-    state: directory    
+    state: directory
     
-#- name: copy nginx host config
-  #copy:
-  #  src: "{{ item }}"
-  #  dest: /opt/docker-compose/nginx/config
-  #  owner: nginx
-  #  group: nginx
-  #with_fileglob: ../files/core/nginx.*.conf
+- name: copy nginx host config
+  copy:
+    src: "{{ item }}"
+    dest: /opt/docker-compose/nginx/config
+    owner: nginx
+    group: nginx
+  with_fileglob: ../files/core/nginx.*.conf
   
 - name: copy nginx server config
   copy:
