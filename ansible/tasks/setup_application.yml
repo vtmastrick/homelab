@@ -1,48 +1,141 @@
-- name: vars
-  set_fact:
-    pre_path:  "roles/{{ application.name }}/tasks/pre.yml"
-    post_path: "roles/{{ application.name }}/tasks/post.yml"
-    service_name: "docker-compose.{{ application.name }}.service"
-    compose_path: "/opt/docker-compose/{{ application.name }}/docker-compose.yml"
+#vars
+- name: include users for "{{ application.name }}"
+  include_vars:
+    file: users.yml
 
-- name: vars2
+- name: include map
+  include_vars:
+    file: maps.yml
+    
+- name: lower application name for "{{ application.name }}"
+  set_fact:
+    app_name_lower: "{{ application.name | lower }}"
+
+- name: get application config for "{{ application.name }}"
+  set_fact:
+    app_config: "{{ users | selectattr('app', 'equalto', app_name_lower) | first }}"
+
+- name: get application id for "{{ application.name }}"
+  set_fact:
+    app_service_name : "{{ app_config.servicename | default(app_name_lower) }}"
+   
+- name: get mount names for "{{ application.name }}"
+  set_fact:
+    app_mount_names : "{{ app_config.mounts | join(' ') }}"
+  when: app_config.mounts is defined
+  
+- name: get mount names for "{{ application.name }}"
+  set_fact:
+    app_mount_names : ""
+  when: app_config.mounts is not defined
+    
+- name: vars for "{{ application.name }}"
+  set_fact:
+    pre_path:  "roles/{{ app_name_lower }}/tasks/pre.yml"
+    post_path: "roles/{{ app_name_lower }}/tasks/post.yml"
+    service_name: "docker-compose.{{ app_service_name }}.service"
+    compose_path: "/opt/docker-compose/{{ app_service_name }}/docker-compose.yml"
+    pre_path_templates: 
+
+- name: vars2 for "{{ application.name }}"
   set_fact:
     service_path: "/etc/systemd/system/{{ service_name }}"
 
-- name: create workspace
+- name: "Include secrets"
+  include_vars:
+    file: vault.yml
+
+
+
+
+#home dir
+- name: create workspace for "{{ application.name }}"
   include_tasks:
     file: tasks/user_and_group.yml
   vars:
-    app: "{{ application.name }}"
+    app: "{{ app_name_lower }}"
 
-- name: Check for prereqs
-  become: no
-  local_action: stat path="{{ pre_path }}"
+
+#required directories
+- name: create required directories for "{{ application.name }}"
+  file:
+    path: "{{ app_config.directory }}"
+    owner: "{{ app_config.username }}"
+    group: "{{ app_config.groupname }}"
+    state: directory
+  loop_control:
+    loop_var: item_directory
+  when: app_config.directory is defined
+
+
+
+#samba
+- name: get cifs util for path
+  apt:
+    pkg:
+      - cifs-utils
+    state: present
+  when: app_config.mounts is defined
+
+- name: Add mounts for "{{ application.name }}"
+  include_tasks:
+    file: tasks/add_mount.yml
+  vars:
+    task_add_mount__app_config: "{{ app_config }}"
+    task_add_mount__mount_config: "{{ item_mount }}"
+    task_add_mount__samba_creds: "{{ vault_samba_users | selectattr('username', 'equalto', item_mount.username) | first }}"
+  with_items: "{{ app_config.mounts }}"
+  loop_control:
+    loop_var: item_mount
+  when: app_config.mounts is defined
+
+
+
+#deploy files
+- name: Copy pre req templates for "{{ application.name }}"
+  template:
+    src: "templates/{{ application_group }}/{{app_name_lower}}.pre.{{ prereq_templates.template_name }}"
+    dest: "{{ prereq_templates.destination }}"
+    owner: "{{ app_config.username }}"
+    group: "{{ app_config.groupname }}"
+  with_items: "{{ app_config.prereq }}"
+  loop_control:
+    loop_var: prereq_templates
+  when: app_config.prereq is defined  
   register: prereq
 
-- name: Do prereqs for "{{ application.name }}"
-  include_tasks:
-    file: "{{ pre_path }}"
-  when: prereq.stat.exists
 
-- name: add user to docker group
+
+
+#docker compose configuration
+- name: add user to docker group for "{{ application.name }}"
   user:
-    name: "{{ application.name }}"
+    name: "{{ app_config.username }}"
     groups: docker
     append: yes
 
-- name: Make sure destination dir exists
+- name: Make sure destination dir exists for "{{ application.name }}"
   file:
     path: "{{ compose_path | dirname }}"
     state: directory
+    owner: "{{ app_config.username }}"
+    group: "{{ app_config.groupname }}"
 
-- name: Copy compose file
-  copy:
-    src: "roles/{{ application.name }}/files/docker-compose.yml"
+- name: Copy compose file for "{{ application.name }}"
+  template:
+    src: "templates/{{ application_group }}/{{ app_name_lower }}.docker-compose.yml"
     dest: "{{ compose_path }}"
+    owner: "{{ app_config.username }}"
+    group: "{{ app_config.groupname }}"
   register: compose
 
-- name: Check for postreqs
+
+
+
+
+
+#post reqs
+- name: Check for postreqs for "{{ application.name }}"
   become: no
   local_action: stat path="{{ post_path }}"
   register: post_deploy
@@ -54,9 +147,16 @@
   register:
     post_deploy_action
 
+
+
+
+
+
+
+#deploy and start service
 - name: Deploy service for "{{ application.name }}"
   template:
-    src: ../templates/docker-compose.service
+    src: ../templates/core/docker-compose.service
     dest: "{{ service_path }}"
   register:
     service

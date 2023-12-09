@@ -1,0 +1,307 @@
+users:
+ - app: 'glances'
+   username:  'glances'
+   groupname: 'glances'
+   uid: 3005
+   gid: 3005
+ - app: 'librespeed'
+   username: 'librespeed'
+   groupname: 'librespeed'
+   uid: 5005
+   gid: 5005
+ - app: 'pyload'
+   username: 'pyload'
+   groupname: 'pyload'
+   uid: 5010
+   gid: 5010
+ - app: 'archivebox'
+   username: 'archivebox'
+   groupname: 'archivebox'
+   uid: 5020
+   gid: 5020
+   mounts:
+     - mount: '/mnt/archivebox'
+       servicename: 'mnt-archivebox.mount'
+       device: '//10.10.125.201/archivebox'
+       fstype: 'cifs'
+       username: 'ArchiveBox'
+   directories:
+     - directory: /mnt/archivebox/data
+ - app: 'ghostfolio'
+   username: 'ghostfolio'
+   groupname: 'ghostfolio'
+   uid: 5040
+   gid: 5040
+   mounts:
+     - mount: '/mnt/ghostfolio'
+       servicename: 'mnt-ghostfolio.mount'
+       device: '//10.10.125.202/ghostfolio'
+       fstype: 'cifs'
+       username: 'ghostfolio'
+   prereq:
+     - template_name: ".env"
+       destination: "/opt/docker-compose/ghostfolio/.env"     
+ - app: 'syncthing'
+   username: 'syncthing'
+   groupname: 'syncthing'
+   uid: 5050
+   gid: 5050
+   mounts:
+     - mount: '/mnt/syncthing'
+       servicename: 'mnt-syncthing.mount'
+       device: '//10.10.125.201/syncthing'
+       fstype: 'cifs'
+       username: 'syncthing'
+ - app: 'paperless_ngx'
+   username: 'paperless_ngx'
+   groupname: 'paperless_ngx'
+   uid: 5060
+   gid: 5060
+   mounts:
+     - mount: '/mnt/paperless_ngx'
+       servicename: 'mnt-paperless_ngx.mount'
+       device: '//10.10.125.201/paperless_ngx'
+       fstype: 'cifs'
+       username: 'paperless_ngx'
+   directories:
+     - directory: /mnt/paperless_ngx/media       
+     - directory: /mnt/paperless_ngx/export
+     - directory: /mnt/paperless_ngx/consume
+   prereq:
+     - template_name: "docker-compose.env"
+       destination: "/opt/docker-compose/paperless_ngx/docker-compose.env"     
+ - app: 'prowlarr'
+   username: 'prowlarr'
+   groupname: 'prowlarr'
+   uid: 2010
+   gid: 2010
+   directories:
+     - /opt/docker-compose/prowlarr/
+     - /opt/docker-compose/prowlarr/config/
+   prereq:
+     - template_name: "config.xml"
+       destination: "/opt/docker-compose/prowlarr/config/config.xml"
+ - app: 'nzbget'
+   username: 'nzbget'
+   groupname: 'nzbget'
+   uid: 2080
+   gid: 2080
+   mounts:
+     - mount: '/mnt/nzbget'
+       servicename: 'mnt-nzbget.mount'
+       device: '//10.10.125.202/nzb'
+       fstype: 'cifs'
+       username: 'nzb'
+   directories:
+     - '/mnt/nzbget/downloads'
+     - '/mnt/nzbget/config'
+   prereq:
+     - template_name: "nzbget.conf"
+       destination: "/mnt/nzbget/config/nzbget.conf"
+ - app: 'viewtube'
+   username: 'viewtube'
+   groupname: 'viewtube'
+   uid: 5015
+   gid: 5015
+   mounts:
+     - mount: '/mnt/viewtube'
+       servicename: 'mnt-viewtube.mount'
+       device: '//10.10.125.202/'
+       fstype: 'cifs'
+       username: 'viewtube'
+   directories:
+       - "/opt/docker-compose/viewtube/data"
+ - app: 'piped'
+   username: 'piped'
+   groupname: 'piped'
+   uid: 5017
+   gid: 5017
+   directories:
+     - "/opt/docker-compose/piped"
+     - "/opt/docker-compose/piped/config/"
+   prereq:
+     - template_name: "config.properties"
+       destination: "/opt/docker-compose/piped/config/config.properties"
+     - template_name: "nginx.conf"
+       destination: "/opt/docker-compose/piped/config/nginx.conf"
+     - template_name: "pipedapi.conf"
+       destination: "/opt/docker-compose/piped/config/pipedapi.conf"
+     - template_name: "pipedfrontend.conf"
+       destination: "/opt/docker-compose/piped/config/pipedfrontend.conf"
+     - template_name: "pipedproxy.conf"
+       destination: "/opt/docker-compose/piped/config/pipedproxy.conf"
+     - template_name: "ytproxy.conf"
+       destination: "/opt/docker-compose/piped/config/ytproxy.conf"
+ - app: 'sonarr_hd'
+   username: 'sonarr_hd'
+   groupname: 'sonarr_hd'
+   uid: 2060
+   gid: 2060
+   mounts:
+     - mount: '/mnt/sonarr_hd/downloads'
+       servicename: 'mnt-sonarr_hd-downloads.mount'
+       device: '//10.10.125.202/nzb/downloads'
+       fstype: 'cifs'
+       username: 'sonarr_hd'
+     - mount: '/mnt/sonarr_hd/torrents'
+       servicename: 'mnt-sonarr_hd-torrents.mount'
+       device: '//10.10.125.202/torrent/downloads'
+       fstype: 'cifs'
+       username: 'sonarr_hd'
+     - mount: '/mnt/sonarr_hd/tv'
+       servicename: 'mnt-sonarr_hd-tv.mount'
+       device: '//10.10.125.202/Videos/tv/hd'
+       fstype: 'cifs'
+       username: 'sonarr_hd'
+ - app: 'sonarr_uhd'
+   username: 'sonarr_uhd'
+   groupname: 'sonarr_uhd'
+   uid: 2061
+   gid: 2061
+   mounts:
+     - mount: '/mnt/sonarr_uhd/downloads'
+       servicename: 'mnt-sonarr_uhd-downloads.mount'
+       device: '//10.10.125.202/nzb/downloads'
+       fstype: 'cifs'
+       username: 'sonarr_uhd'
+     - mount: '/mnt/sonarr_uhd/torrents'
+       servicename: 'mnt-sonarr_uhd-torrents.mount'
+       device: '//10.10.125.202/torrent/downloads'
+       fstype: 'cifs'
+       username: 'sonarr_uhd'
+     - mount: '/mnt/sonarr_uhd/tv'
+       servicename: 'mnt-sonarr_uhd-tv.mount'
+       device: '//10.10.125.202/Videos/tv/uhd'
+       fstype: 'cifs'
+       username: 'sonarr_uhd'
+ - app: 'sonarr_anime'
+   username: 'sonarr_anime'
+   groupname: 'sonarr_anime'
+   uid: 2062
+   gid: 2062
+   mounts:
+     - mount: '/mnt/sonarr_anime/downloads'
+       servicename: 'mnt-sonarr_anime-downloads.mount'
+       device: '//10.10.125.202/nzb/downloads'
+       fstype: 'cifs'
+       username: 'sonarr_anime'
+     - mount: '/mnt/sonarr_anime/torrents'
+       servicename: 'mnt-sonarr_anime-torrents.mount'
+       device: '//10.10.125.202/torrent/downloads'
+       fstype: 'cifs'
+       username: 'sonarr_anime'
+     - mount: '/mnt/sonarr_anime/anime'
+       servicename: 'mnt-sonarr_anime-tv.mount'
+       device: '//10.10.125.202/Videos/tv/anime'
+       fstype: 'cifs'
+       username: 'sonarr_anime'
+ - app: 'torrent_qbt'
+   username: 'torrent_qbt'
+   groupname: 'torrent_qbt'
+   uid: 2070
+   gid: 2070
+   mounts:
+     - mount: '/mnt/torrent_qbt'
+       servicename: 'mnt-torrent_qbt.mount'
+       device: '//10.10.125.202/torrent'
+       fstype: 'cifs'
+       username: 'torrent_qbt'
+ - app: 'gluetun'
+   username: 'gluetun'
+   groupname: 'gluetun'
+   uid: 2000
+   gid: 2000
+ - app: 'radarr_hd'
+   username: 'radarr_hd'
+   groupname: 'radarr_hd'
+   uid: 2050
+   gid: 2050
+   mounts:
+     - mount: '/mnt/radarr_hd/downloads'
+       servicename: 'mnt-radarr_hd-downloads.mount'
+       device: '//10.10.125.202/nzb/downloads'
+       fstype: 'cifs'
+       username: 'radarr_hd'
+     - mount: '/mnt/radarr_hd/torrents'
+       servicename: 'mnt-radarr_hd-torrents.mount'
+       device: '//10.10.125.202/torrent/downloads'
+       fstype: 'cifs'
+       username: 'radarr_hd'
+     - mount: '/mnt/radarr_hd/movies'
+       servicename: 'mnt-radarr_hd-movies.mount'
+       device: '//10.10.125.202/Videos/movies/hd'
+       fstype: 'cifs'
+       username: 'radarr_hd'
+ - app: 'radarr_uhd'
+   username: 'radarr_uhd'
+   groupname: 'radarr_uhd'
+   uid: 2051
+   gid: 2051
+   mounts:
+     - mount: '/mnt/radarr_uhd/downloads'
+       servicename: 'mnt-radarr_uhd-downloads.mount'
+       device: '//10.10.125.202/nzb/downloads'
+       fstype: 'cifs'
+       username: 'radarr_uhd'
+     - mount: '/mnt/radarr_uhd/torrents'
+       servicename: 'mnt-radarr_uhd-torrents.mount'
+       device: '//10.10.125.202/torrent/downloads'
+       fstype: 'cifs'
+       username: 'radarr_uhd'
+     - mount: '/mnt/radarr_uhd/movies'
+       servicename: 'mnt-radarr_uhd-movies.mount'
+       device: '//10.10.125.202/Videos/movies/uhd'
+       fstype: 'cifs'
+       username: 'radarr_uhd'
+ - app: 'radarr_anime'
+   username: 'radarr_anime'
+   groupname: 'radarr_anime'
+   uid: 2052
+   gid: 2052
+   directories:
+     - '/mnt/radarr_anime'   
+   mounts:
+     - mount: '/mnt/radarr_anime/downloads'
+       servicename: 'mnt-radarr_anime-downloads.mount'
+       device: '//10.10.125.202/nzb/downloads'
+       fstype: 'cifs'
+       username: 'radarr_anime'
+     - mount: '/mnt/radarr_anime/torrents'
+       servicename: 'mnt-radarr_anime-torrents.mount'
+       device: '//10.10.125.202/torrent/downloads'
+       fstype: 'cifs'
+       username: 'radarr_anime'
+     - mount: '/mnt/radarr_anime/movies'
+       servicename: 'mnt-radarr_anime-movies.mount'
+       device: '//10.10.125.202/Videos/movies/anime'
+       fstype: 'cifs'
+       username: 'radarr_anime'
+ - app: 'recyclarr'
+   username: 'recyclarr'
+   groupname: 'recyclarr'
+   uid: 2020
+   gid: 2020
+   directories:
+     - '/opt/docker-compose/recyclarr/config'
+   prereq:
+     - template_name: "recyclarr.yml"
+       destination: "/opt/docker-compose/recyclarr/config/recyclarr.yml"
+ - app: 'watchtower'
+   username: 'watchtower'
+   groupname: 'watchtower'
+   uid: 9090
+   gid: 9090
+ - app: 'nginx'
+   servicename: nginx
+   username: 'nginx'
+   groupname: 'nginx'
+   uid: 9030
+   gid: 9030
+ - app: 'invidious'
+   username: 'invidious'
+   groupname: 'invidious'
+   uid: 6000
+   gid: 6000
+   prereq:
+     - template_name: ".env"
+       destination: "/opt/docker-compose/invidious/.env"

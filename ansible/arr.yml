@@ -1,0 +1,35 @@
+- hosts: arr
+  become: yes
+  become_method: sudo
+  roles:
+    - ansible_client
+    - docker
+  tasks:
+    - set_fact:
+        applications:
+          - name : Gluetun
+          - name : Prowlarr
+          - name : NZBGet
+          - name : Sonarr_HD
+          - name : Sonarr_UHD
+          - name : Sonarr_Anime
+          - name : Torrent_qBt
+          - name : Radarr_HD
+          - name : Radarr_UHD
+          - name : Radarr_Anime
+          - name : Recyclarr
+
+    - name: setup application
+      include_tasks:
+        file: tasks/setup_application.yml
+      vars:
+        application: "{{ item }}"
+        application_group: "arr"
+      with_items: "{{ applications }}"
+
+    - name: setup application
+      include_tasks:
+        file: tasks/nginx.yml
+      vars:
+        application_group: "arr"
+        

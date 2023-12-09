@@ -1,12 +1,14 @@
-- name: create directory
+- name: create directory "{{ entry.mount }}" for "{{ entry.user }}"
   file:
     path: "{{ entry.mount }}"
     state: directory
+    owner: "{{ entry.user }}"
+    group: "{{ entry.group }}"
 
 - name: Ensure fstab uses nodev
   mount:
-    name: "{{ entry.mount }}"
+    path: "{{ entry.mount }}"
     src: "{{ entry.device }}"
     fstype: "{{ entry.fstype }}"
     opts: "{{ entry.options }},nodev"
-    state: mounted
+    state: present

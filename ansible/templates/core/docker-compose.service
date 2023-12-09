@@ -1,0 +1,14 @@
+[Unit]
+Description={{ app_service_name }} with Docker
+After={{ app_mount_names }}
+Requires=docker.service {{ app_mount_names }}
+
+[Service]
+User={{ app_service_name | lower }}
+Group={{ app_service_name | lower }}
+Restart=always
+ExecStart=/usr/bin/docker compose -f /opt/docker-compose/{{ app_service_name | lower }}/docker-compose.yml up
+ExecStop=/usr/bin/docker compose -f /opt/docker-compose/{{ app_service_name | lower }}/docker-compose.yml down
+
+[Install]
+WantedBy=default.target
