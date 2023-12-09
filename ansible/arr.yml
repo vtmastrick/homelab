@@ -3,7 +3,7 @@
   become_method: sudo
   roles:
     - ansible_client
-#    - docker
+    - docker
   tasks:
     - set_fact:
         applications:
