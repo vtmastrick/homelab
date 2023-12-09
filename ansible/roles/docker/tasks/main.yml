@@ -58,4 +58,5 @@
     file: tasks/setup_application.yml
   vars:
     application: "{{ item }}"
+    application_group: "core"
   with_items: "{{ watchtower_app }}"

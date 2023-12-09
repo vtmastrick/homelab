@@ -1,7 +1,0 @@
----
-sonarr_hd_api_key: "{{ secret_sonarr_hd_api_key }}"
-sonarr_uhd_api_key: "{{ secret_sonarr_uhd_api_key }}"
-sonarr_anime_api_key: "{{ secret_sonarr_anime_api_key }}"
-radarr_hd_api_key: "{{ secret_radarr_hd_api_key }}"
-radarr_uhd_api_key: "{{ secret_radarr_uhd_api_key }}"
-radarr_anime_api_key: "{{ secret_radarr_anime_api_key }}"

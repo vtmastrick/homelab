@@ -1,5 +1,0 @@
----
-ghostfolio_redis_password: "{{ secret_ghostfolio_redis_password }}"
-ghostfolio_salt: "{{ secret_ghostfolio_salt }}"
-ghostfolio_db_password: "{{ secret_ghostfolio_db_password }}"
-ghostfolio_jwt_secret_key: "{{ secret_ghostfolio_jwt_secret_key }}"

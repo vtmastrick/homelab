@@ -7,17 +7,25 @@
   tasks:
     - set_fact:
         applications:
-          #- name : ArchiveBox
-          #- name : libreSpeed
-          #- name : glances
-          #- name : Ghostfolio
-          #- name : Syncthing
+          - name : ArchiveBox
+          - name : libreSpeed
+          - name : glances
+          - name : Ghostfolio
+          - name : Syncthing
           - name : Paperless_NGX
 
     - name: setup application
       include_tasks:
         file: tasks/setup_application.yml
       vars:
-        application: "{{ item }}"
+        application: "{{ application_name }}"
+        application_group: "homelab"
       with_items: "{{ applications }}"
-
+      loop_control:
+        loop_var: application_name
+        
+    - name: setup application
+      include_tasks:
+        file: tasks/nginx.yml
+      vars:
+        application_group: "homelab"        

@@ -8,13 +8,27 @@
     - set_fact:
         applications:
           - name : Invidious
-          - name : ViewTube          
+          - name : ViewTube
           - name : Piped
-          - name : Nginx_Stream          
 
     - name: setup application
       include_tasks:
         file: tasks/setup_application.yml
       vars:
         application: "{{ item }}"
+        application_group: "stream"
       with_items: "{{ applications }}"
+
+    - name: setup application
+      include_tasks:
+        file: tasks/setup_application.yml
+      vars:
+        application:
+          name: "nginx"
+        application_group: "core"
+
+    - name: setup application
+      include_tasks:
+        file: tasks/nginx.yml
+      vars:
+        application_group: "stream"

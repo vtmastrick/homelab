@@ -1,2 +1,0 @@
-samba_users: "{{ vault_samba_users }}"
-samba_creds: "{{ samba_users | selectattr('username', 'equalto', 'radarr_anime') | first }}"
