@@ -15,6 +15,7 @@
           - name : Paperless_NGX
           - name : IT-Tools
           - name : Stirling-PDF
+          - name : flatnotes
 
     - name: setup application
       include_tasks:

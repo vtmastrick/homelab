@@ -321,4 +321,14 @@ users:
        device: '//10.10.125.201/stirling_pdf'
        fstype: 'cifs'
        username: 'stirling_pdf'
-   
+ - app: 'flatnotes'
+   username: 'flatnotes'
+   groupname: 'flatnotes'
+   uid: 5035
+   gid: 5035
+   mounts:
+     - mount: '/mnt/flatnotes'
+       servicename: 'mnt-flatnotes.mount'
+       device: '//10.10.125.201/flatnotes'
+       fstype: 'cifs'
+       username: 'flatnotes'
