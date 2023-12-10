@@ -305,3 +305,8 @@ users:
    prereq:
      - template_name: ".env"
        destination: "/opt/docker-compose/invidious/.env"
+ - app: 'it-tools'
+   username: 'it-tools'
+   groupname: 'it-tools'
+   uid: 5025
+   gid: 5025

@@ -13,6 +13,7 @@
           - name : Ghostfolio
           - name : Syncthing
           - name : Paperless_NGX
+          - name : IT-Tools
 
     - name: setup application
       include_tasks:
