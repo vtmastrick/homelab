@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  flatnotes:
+    container_name: flatnotes
+    image: dullage/flatnotes:latest
+    environment:
+      PUID: 5035
+      PGID: 5035
+      FLATNOTES_AUTH_TYPE: "password"
+      FLATNOTES_USERNAME: "{{ vault_flatnotes_user }}"
+      FLATNOTES_PASSWORD: "{{ vault_flatnotes_password }}"
+      FLATNOTES_SECRET_KEY: "{{ vault_flatnotes_secret_key }}"
+      TZ: America/New_York      
+    volumes:
+      - "/mnt/flatnotes/data:/data"
+    ports:
+      - "8089:8080"
+    restart: unless-stopped
