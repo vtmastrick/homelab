@@ -310,3 +310,15 @@ users:
    groupname: 'it-tools'
    uid: 5025
    gid: 5025
+ - app: 'stirling-pdf'
+   username: 'stirling-pdf'
+   groupname: 'stirling-pdf'
+   uid: 5030
+   gid: 5030
+   mounts:
+     - mount: '/mnt/stirling_pdf'
+       servicename: 'mnt-stirling_pdf.mount'
+       device: '//10.10.125.201/stirling_pdf'
+       fstype: 'cifs'
+       username: 'stirling_pdf'
+   
