@@ -16,6 +16,7 @@
           - name : IT-Tools
           - name : Stirling-PDF
           - name : flatnotes
+          - name : LibreTranslate
 
     - name: setup application
       include_tasks:
@@ -31,4 +32,4 @@
       include_tasks:
         file: tasks/nginx.yml
       vars:
-        application_group: "homelab"        
+        application_group: "homelab"

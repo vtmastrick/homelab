@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  libretranslate:
+    container_name: libretranslate
+    image: libretranslate/libretranslate
+    healthcheck:
+      test: ['CMD-SHELL', './venv/bin/python scripts/healthcheck.py']
+    mem_limit: 4g
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 7821:5000
+    environment:
+      LT_LOAD_ONLY: de,en,zh,it,es,fr,pl,tr,ru,fi,nl,id,cs,el,hu,sk
+      PUID : 5045
+      PGID : 5045
+      TZ : America/New_York

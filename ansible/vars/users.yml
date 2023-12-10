@@ -332,3 +332,8 @@ users:
        device: '//10.10.125.201/flatnotes'
        fstype: 'cifs'
        username: 'flatnotes'
+ - app: 'libretranslate'
+   username: 'libretranslate'
+   groupname: 'libretranslate'
+   uid: 5045
+   gid: 5045
