@@ -10,6 +10,7 @@
           - name : Invidious
           - name : ViewTube
           - name : Piped
+          - name : Muer
 
     - name: setup application
       include_tasks:

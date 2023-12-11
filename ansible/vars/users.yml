@@ -337,3 +337,8 @@ users:
    groupname: 'libretranslate'
    uid: 5045
    gid: 5045
+ - app: 'muer'
+   username: 'muer'
+   groupname: 'muer'
+   uid: 6020
+   gid: 6020   
