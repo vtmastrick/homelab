@@ -17,6 +17,7 @@
           - name : Stirling-PDF
           - name : flatnotes
           - name : LibreTranslate
+          - name : Uptime-Kuma
 
     - name: setup application
       include_tasks:
