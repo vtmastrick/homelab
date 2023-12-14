@@ -26,7 +26,7 @@ users:
        fstype: 'cifs'
        username: 'ArchiveBox'
    directories:
-     - directory: /mnt/archivebox/data
+     - directory: /mnt/archivebox
  - app: 'ghostfolio'
    username: 'ghostfolio'
    groupname: 'ghostfolio'
@@ -106,7 +106,7 @@ users:
    mounts:
      - mount: '/mnt/viewtube'
        servicename: 'mnt-viewtube.mount'
-       device: '//10.10.125.202/'
+       device: '//10.10.125.202/viewtube'
        fstype: 'cifs'
        username: 'viewtube'
    directories:
@@ -191,7 +191,7 @@ users:
        fstype: 'cifs'
        username: 'sonarr_anime'
      - mount: '/mnt/sonarr_anime/anime'
-       servicename: 'mnt-sonarr_anime-tv.mount'
+       servicename: 'mnt-sonarr_anime-anime.mount'
        device: '//10.10.125.202/Videos/tv/anime'
        fstype: 'cifs'
        username: 'sonarr_anime'
@@ -341,4 +341,9 @@ users:
    username: 'muer'
    groupname: 'muer'
    uid: 6020
-   gid: 6020   
+   gid: 6020
+ - app: 'uptime-kuma'
+   username: 'uptime_kuma'
+   groupname: 'uptime_kuma'
+   uid: 3010
+   gid: 3010

@@ -21,14 +21,14 @@
    
 - name: get mount names for "{{ application.name }}"
   set_fact:
-    app_mount_names : "{{ app_config.mounts | join(' ') }}"
+    app_mount_names : "{{ app_config.mounts | to_json | from_json | json_query('[*].servicename') | join(' ') }}"
   when: app_config.mounts is defined
-  
+
 - name: get mount names for "{{ application.name }}"
   set_fact:
     app_mount_names : ""
   when: app_config.mounts is not defined
-    
+  
 - name: vars for "{{ application.name }}"
   set_fact:
     pre_path:  "roles/{{ app_name_lower }}/tasks/pre.yml"

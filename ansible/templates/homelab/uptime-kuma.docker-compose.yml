@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+  uptime-kuma:
+    image: 'louislam/uptime-kuma:1'
+    container_name: uptime-kuma
+    volumes:
+      - ./data:/app/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock      
+    ports:
+      - '3001:3001'
+    restart: always
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:3001
+    security_opt:
+      - "no-new-privileges=true"
+    networks:
+      - uptime_kuma
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    dns:
+      - 1.1.1.1
+
+networks:
+  uptime_kuma:
