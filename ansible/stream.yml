@@ -11,6 +11,7 @@
           - name : ViewTube
           - name : Piped
           - name : Muer
+          - name : RomM
 
     - name: setup application
       include_tasks:

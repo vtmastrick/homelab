@@ -347,3 +347,17 @@ users:
    groupname: 'uptime_kuma'
    uid: 3010
    gid: 3010
+ - app: 'romm'
+   username: 'romm'
+   groupname: 'romm'
+   uid: 6090
+   gid: 6090
+   directories:
+     - '/mnt/romm'
+     - '/mnt/romm/emulators'
+   mounts:
+     - mount: '/mnt/romm/emulators'
+       servicename: 'mnt-romm-emulators.mount'
+       device: '//10.10.125.201/emulators'
+       fstype: 'cifs'
+       username: 'romm'
