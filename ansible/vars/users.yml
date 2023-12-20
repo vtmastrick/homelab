@@ -361,3 +361,8 @@ users:
        device: '//10.10.125.201/emulators'
        fstype: 'cifs'
        username: 'romm'
+ - app: 'your_spotify'
+   username: 'your_spotify'
+   groupname: 'your_spotify'
+   uid: 6050
+   gid: 6050       

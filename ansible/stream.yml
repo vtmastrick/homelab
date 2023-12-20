@@ -12,6 +12,7 @@
           - name : Piped
           - name : Muer
           - name : RomM
+          - name : Your_Spotify
 
     - name: setup application
       include_tasks:
