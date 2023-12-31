@@ -365,4 +365,24 @@ users:
    username: 'your_spotify'
    groupname: 'your_spotify'
    uid: 6050
-   gid: 6050       
+   gid: 6050   
+ - app: 'gamevault'
+   username: 'gamevault'
+   groupname: 'gamevault'
+   uid: 6060
+   gid: 6060
+   directories:
+     - '/mnt/gamevault'
+     - '/mnt/gamevault/files'
+     - '/mnt/gamevault/images'
+   mounts:
+     - mount: '/mnt/gamevault/files'
+       servicename: 'mnt-gamevault-files.mount'
+       device: '//10.10.125.201/games/data'
+       fstype: 'cifs'
+       username: 'gamevault'   
+     - mount: '/mnt/gamevault/images'
+       servicename: 'mnt-gamevault-images.mount'
+       device: '//10.10.125.201/games/gamevault/images'
+       fstype: 'cifs'
+       username: 'gamevault'        
