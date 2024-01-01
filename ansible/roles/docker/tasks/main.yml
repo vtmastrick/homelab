@@ -49,6 +49,28 @@
     state: started
     enabled: yes
 
+- name: install cron
+  apt:
+    pkg:
+      - cron
+    state: present
+
+- name: Copy docker cleanup script
+  copy:
+    src: ../files/docker-trim.sh
+    dest: "/usr/local/sbin/docker-trim.sh"
+    owner: root
+    group: root
+    mode: '770'
+    
+- name: Creates a cron file under /etc/cron.d
+  cron:
+    name: trim docker
+    hour: "4"
+    user: root
+    job: "/usr/local/sbin/docker-trim.sh"
+    cron_file: docker-trim    
+
 - set_fact:
     watchtower_app:
       - name : "Watchtower"
@@ -59,4 +81,4 @@
   vars:
     application: "{{ item }}"
     application_group: "core"
-  with_items: "{{ watchtower_app }}"
+  with_items: "{{ watchtower_app }}"  
