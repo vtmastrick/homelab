@@ -13,6 +13,7 @@
           - name : Muer
           - name : RomM
           - name : Your_Spotify
+          - name : MeTube
 
     - name: setup application
       include_tasks:
