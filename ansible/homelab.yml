@@ -18,6 +18,7 @@
           - name : flatnotes
           - name : LibreTranslate
           - name : Uptime-Kuma
+          - name : OpenSpeedTest
 
     - name: setup application
       include_tasks:
