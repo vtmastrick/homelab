@@ -33,6 +33,7 @@
     owner: nginx
     group: nginx
   with_fileglob: ../files/core/nginx.*.conf
+  register: nginx_host
   
 - name: copy nginx server config
   copy:
@@ -41,6 +42,7 @@
     owner: nginx
     group: nginx
   with_fileglob: ../files/{{ application_group }}/nginx.server.*.conf
+  register: nginx_server
   
 - name: copy nginx server config
   copy:
@@ -49,6 +51,7 @@
     owner: nginx
     group: nginx
   with_fileglob: ../files/{{ application_group }}/nginx.location.*.conf
+  register: nginx_location
   
 - name: create nginx network
   docker_network:
@@ -59,4 +62,8 @@
     name: nginx-bridge
     driver_options:
       com.docker.network.bridge.name: nginx-bridge  
-    
+
+- name: set app changed
+  set_fact:
+    app.changed : true
+  when: nginx_host.changed or nginx_server.changed or nginx_location.changed

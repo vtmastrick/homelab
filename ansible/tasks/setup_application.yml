@@ -36,6 +36,7 @@
     service_name: "docker-compose.{{ app_service_name }}.service"
     compose_path: "/opt/docker-compose/{{ app_service_name }}/docker-compose.yml"
     pre_path_templates: 
+    app.changed : false
 
 - name: vars2 for "{{ application.name }}"
   set_fact:
@@ -45,16 +46,12 @@
   include_vars:
     file: vault.yml
 
-
-
-
 #home dir
 - name: create workspace for "{{ application.name }}"
   include_tasks:
     file: tasks/user_and_group.yml
   vars:
     app: "{{ app_name_lower }}"
-
 
 #required directories
 - name: create required directories for "{{ application.name }}"
@@ -66,8 +63,6 @@
   loop_control:
     loop_var: item_directory
   when: app_config.directory is defined
-
-
 
 #samba
 - name: get cifs util for path
@@ -89,8 +84,6 @@
     loop_var: item_mount
   when: app_config.mounts is defined
 
-
-
 #deploy files
 - name: Copy pre req templates for "{{ application.name }}"
   template:
@@ -103,9 +96,6 @@
     loop_var: prereq_templates
   when: app_config.prereq is defined  
   register: prereq
-
-
-
 
 #docker compose configuration
 - name: add user to docker group for "{{ application.name }}"
@@ -129,11 +119,6 @@
     group: "{{ app_config.groupname }}"
   register: compose
 
-
-
-
-
-
 #post reqs
 - name: Check for postreqs for "{{ application.name }}"
   become: no
@@ -146,12 +131,6 @@
   when: post_deploy.stat.exists
   register:
     post_deploy_action
-
-
-
-
-
-
 
 #deploy and start service
 - name: Deploy service for "{{ application.name }}"
@@ -167,4 +146,4 @@
     state: restarted
     enabled: yes
     daemon_reload: yes
-  when: compose.changed or post_deploy_action.changed or service.changed
+  when: compose.changed or post_deploy_action.changed or service.changed or app.changed
