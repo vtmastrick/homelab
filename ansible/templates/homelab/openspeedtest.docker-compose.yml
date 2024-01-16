@@ -13,4 +13,4 @@ services:
     image: openspeedtest/latest
     volumes:
       - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro    
+      - /etc/localtime:/etc/localtime:ro

@@ -391,3 +391,17 @@ users:
    groupname: 'openspeedtest'
    uid: 5055
    gid: 5055
+ - app: 'metube'
+   username: 'metube'
+   groupname: 'metube'
+   uid: 6070
+   gid: 6070
+   mounts:
+     - mount: '/mnt/metube'
+       servicename: 'mnt-metube.mount'
+       device: '//10.10.125.202/metube'
+       fstype: 'cifs'
+       username: 'metube'
+   directories:
+       - "/opt/docker-compose/metube/downloads"
+   
