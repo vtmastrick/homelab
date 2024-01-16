@@ -385,4 +385,9 @@ users:
        servicename: 'mnt-gamevault-images.mount'
        device: '//10.10.125.201/games/gamevault/images'
        fstype: 'cifs'
-       username: 'gamevault'        
+       username: 'gamevault'
+ - app: 'openspeedtest'
+   username: 'openspeedtest'
+   groupname: 'openspeedtest'
+   uid: 5055
+   gid: 5055
