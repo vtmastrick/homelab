@@ -404,4 +404,8 @@ users:
        username: 'metube'
    directories:
        - "/opt/docker-compose/metube/downloads"
-   
+ - app: 'dozzle'
+   username: 'dozzle'
+   groupname: 'dozzle'
+   uid: 3020
+   gid: 3020

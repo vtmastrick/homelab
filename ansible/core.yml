@@ -4,3 +4,18 @@
   roles:
     - ansible_client
     - docker
+  tasks:
+    - set_fact:
+        applications:
+          - name : glances
+          - name : dozzle          
+          
+    - name: setup application
+      include_tasks:
+        file: tasks/setup_application.yml
+      vars:
+        application: "{{ application_name }}"
+        application_group: "core"
+      with_items: "{{ applications }}"
+      loop_control:
+        loop_var: application_name          
