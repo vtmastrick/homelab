@@ -9,7 +9,6 @@
         applications:
           - name : ArchiveBox
           - name : libreSpeed
-          - name : glances
           - name : Ghostfolio
           - name : Syncthing
           - name : Paperless_NGX
