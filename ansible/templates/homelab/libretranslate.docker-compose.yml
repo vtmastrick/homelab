@@ -11,7 +11,7 @@ services:
     ports:
       - 7821:5000
     environment:
-      LT_LOAD_ONLY: de,en,zh,it,es,fr,pl,tr,ru,fi,nl,id,cs,el,hu,sk
+      LT_LOAD_ONLY: en,fr,de,es,ru,zh
       PUID : 5045
       PGID : 5045
       TZ : America/New_York
