@@ -72,17 +72,28 @@
     state: present
   when: app_config.mounts is defined
 
-- name: Add mounts for "{{ application.name }}"
+- name: Add samba mounts for "{{ application.name }}"
   include_tasks:
     file: tasks/add_mount.yml
   vars:
     task_add_mount__app_config: "{{ app_config }}"
     task_add_mount__mount_config: "{{ item_mount }}"
     task_add_mount__samba_creds: "{{ vault_samba_users | selectattr('username', 'equalto', item_mount.username) | first }}"
-  with_items: "{{ app_config.mounts }}"
+  with_items: "{{ app_config.mounts | selectattr('fstype', 'equalto', 'cifs') }}"
   loop_control:
     loop_var: item_mount
   when: app_config.mounts is defined
+  
+- name: Add nfs mounts for "{{ application.name }}"
+  include_tasks:
+    file: tasks/add_mount.yml
+  vars:
+    task_add_mount__app_config: "{{ app_config }}"
+    task_add_mount__mount_config: "{{ item_mount }}"
+  with_items: "{{ app_config.mounts | selectattr('fstype', 'equalto', 'nfs') }}"
+  loop_control:
+    loop_var: item_mount
+  when: app_config.mounts is defined  
 
 #deploy files
 - name: Copy pre req templates for "{{ application.name }}"

@@ -1,10 +1,11 @@
-- name: create directory "{{ entry.mount }}" for "{{ entry.user }}"
+- name: create directory "{{ entry.mount }}" for "{{ fstab_user }}"
   file:
     path: "{{ entry.mount }}"
     state: directory
     owner: "{{ entry.user }}"
     group: "{{ entry.group }}"
-
+  when: entry.fstype == "cifs"
+  
 - name: Ensure fstab uses nodev
   mount:
     path: "{{ entry.mount }}"
@@ -12,3 +13,18 @@
     fstype: "{{ entry.fstype }}"
     opts: "{{ entry.options }},nodev"
     state: present
+  when: entry.fstype == "cifs"
+
+- name: create directory "{{ entry.mount }}"
+  file:
+    path: "{{ entry.mount }}"
+    state: directory
+  when: entry.fstype == "nfs"
+  
+- name: Add fstab entry
+  mount:
+    path: "{{ entry.mount }}"
+    src: "{{ entry.device }}"
+    fstype: "{{ entry.fstype }}"
+    state: present
+  when: entry.fstype == "nfs"  

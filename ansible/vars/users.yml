@@ -409,3 +409,18 @@ users:
    groupname: 'dozzle'
    uid: 3020
    gid: 3020
+ - app: 'tubearchivist'
+   username: 'tubearchivist'
+   groupname: 'tubearchivist'
+   uid: 6080
+   gid: 6080
+   mounts:
+     - mount: '/mnt/tubearchivist'
+       servicename: 'mnt-tubearchivist.mount'
+       device: '//10.10.125.202/Videos/web/youtube'
+       fstype: 'cifs'
+       username: 'tubearchivist'
+     - mount: '/mnt/nas02/home'
+       servicename: 'mnt-nas02-home.mount'
+       device: '10.10.125.202:/home/'
+       fstype: 'nfs'
