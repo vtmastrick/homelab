@@ -1,0 +1,22 @@
+services:
+  plex:
+    container_name: plex
+    image: plexinc/pms-docker:latest
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+      - ALLOWED_NETWORKS=10.10.125.0/24,172.16.0.0/16
+      - PLEX_UID=9001
+      - PLEX_GID=9001
+    network_mode: host
+    volumes:
+      - /data/plex/config:/config
+      - /data/plex/transcode:/transcode
+      - /mnt/nas02/Videos/tv/hd:/data/tv/hd
+      - /mnt/nas02/Videos/tv/uhd:/data/tv/uhd
+      - /mnt/nas02/Videos/tv/anime:/data/tv/anime
+      - /mnt/nas02/Videos/movies/hd:/data/movies/hd
+      - /mnt/nas02/Videos/movies/uhd:/data/movies/uhd
+      - /mnt/nas02/Videos/movies/anime:/data/movies/anime
+    devices:
+      - /dev/dri:/dev/drisudo
