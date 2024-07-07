@@ -18,6 +18,7 @@
           - name : LibreTranslate
           - name : Uptime-Kuma
           - name : OpenSpeedTest
+          - name : Forgejo
 
     - name: setup application
       include_tasks:
@@ -28,7 +29,7 @@
       with_items: "{{ applications }}"
       loop_control:
         loop_var: application_name
-        
+
     - name: setup application
       include_tasks:
         file: tasks/nginx.yml

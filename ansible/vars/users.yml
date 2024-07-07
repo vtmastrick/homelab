@@ -152,7 +152,7 @@ users:
        servicename: 'mnt-sonarr_hd-tv.mount'
        device: '//10.10.125.202/Videos/tv/hd'
        fstype: 'cifs'
-       username: 'sonarr_hd'
+       username: 'sonarr_hd'   
  - app: 'sonarr_uhd'
    username: 'sonarr_uhd'
    groupname: 'sonarr_uhd'

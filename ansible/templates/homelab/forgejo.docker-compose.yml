@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  server:
+    image: codeberg.org/forgejo/forgejo:1.20
+    container_name: forgejo
+    environment:
+      - USER_UID=3030
+      - USER_GID=3030
+      - FORGEJO__database__DB_TYPE=mysql
+      - FORGEJO__database__HOST=db:3306
+      - FORGEJO__database__NAME=forgejo
+      - FORGEJO__database__USER=forgejo
+      - FORGEJO__database__PASSWD={{ vault_forgejo_db_password }}
+    restart: always
+    networks:
+      - forgejo
+    volumes:
+      - /mnt/forgejo/data:/data
+      - /mnt/forgejo/conf:/etc/gitea
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - '3333:3000'
+      - '222:22'
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8
+    restart: always
+    container_name: forgejo_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=forgejo
+      - MYSQL_USER=forgejo
+      - MYSQL_PASSWORD={{ vault_forgejo_db_password }}
+      - MYSQL_DATABASE=forgejo
+    networks:
+      - forgejo
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+networks:
+  forgejo:
+    external: false
+
+#https://forgejo.org/docs/latest/admin/installation-docker/
