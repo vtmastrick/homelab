@@ -7,6 +7,7 @@
   tasks:
     - set_fact:
         applications:
+<<<<<<< HEAD
           - name : ArchiveBox
           - name : libreSpeed
           - name : Ghostfolio
@@ -18,6 +19,19 @@
           - name : LibreTranslate
           - name : Uptime-Kuma
           - name : OpenSpeedTest
+=======
+#          - name : ArchiveBox
+#          - name : libreSpeed
+#          - name : Ghostfolio
+#          - name : Syncthing
+#          - name : Paperless_NGX
+#          - name : IT-Tools
+#          - name : Stirling-PDF
+#          - name : flatnotes
+#          - name : LibreTranslate
+#          - name : Uptime-Kuma
+#          - name : OpenSpeedTest
+>>>>>>> 8629f04 (Added forgejo)
           - name : Forgejo
 
     - name: setup application
