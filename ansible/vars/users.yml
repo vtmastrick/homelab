@@ -40,7 +40,7 @@ users:
        username: 'ghostfolio'
    prereq:
      - template_name: ".env"
-       destination: "/opt/docker-compose/ghostfolio/.env"     
+       destination: "/opt/docker-compose/ghostfolio/.env"
  - app: 'syncthing'
    username: 'syncthing'
    groupname: 'syncthing'
@@ -64,12 +64,12 @@ users:
        fstype: 'cifs'
        username: 'paperless_ngx'
    directories:
-     - directory: /mnt/paperless_ngx/media       
+     - directory: /mnt/paperless_ngx/media
      - directory: /mnt/paperless_ngx/export
      - directory: /mnt/paperless_ngx/consume
    prereq:
      - template_name: "docker-compose.env"
-       destination: "/opt/docker-compose/paperless_ngx/docker-compose.env"     
+       destination: "/opt/docker-compose/paperless_ngx/docker-compose.env"
  - app: 'prowlarr'
    username: 'prowlarr'
    groupname: 'prowlarr'
@@ -259,7 +259,7 @@ users:
    uid: 2052
    gid: 2052
    directories:
-     - '/mnt/radarr_anime'   
+     - '/mnt/radarr_anime'
    mounts:
      - mount: '/mnt/radarr_anime/downloads'
        servicename: 'mnt-radarr_anime-downloads.mount'
@@ -365,7 +365,7 @@ users:
    username: 'your_spotify'
    groupname: 'your_spotify'
    uid: 6050
-   gid: 6050   
+   gid: 6050
  - app: 'gamevault'
    username: 'gamevault'
    groupname: 'gamevault'
@@ -380,7 +380,7 @@ users:
        servicename: 'mnt-gamevault-files.mount'
        device: '//10.10.125.201/games/data'
        fstype: 'cifs'
-       username: 'gamevault'   
+       username: 'gamevault'
      - mount: '/mnt/gamevault/images'
        servicename: 'mnt-gamevault-images.mount'
        device: '//10.10.125.201/games/gamevault/images'
@@ -424,3 +424,54 @@ users:
        servicename: 'mnt-nas02-home.mount'
        device: '10.10.125.202:/home/'
        fstype: 'nfs'
+ - app: 'forgejo'
+   username: 'forgejo'
+   groupname: 'forgejo'
+   uid: 3030
+   gid: 3030
+   mounts:
+    # - mount: '/mnt/forgejo'
+    #   servicename: 'mnt-forgejo.mount'
+    #   device: '//10.10.125.202/forgejo'
+    #   fstype: 'cifs'
+    #   username: 'forgejo'
+     - mount: '/mnt/homelab_forgejo'
+       servicename: 'mnt-nas02-homelab_forgejo.mount'
+       device: '10.10.125.202:/homelab_forgejo/'
+       fstype: 'nfs'
+ - app: 'plex'
+   username: 'plex'
+   groupname: 'plex'
+   uid: 9001
+   gid: 9001
+   mounts:
+     -  mount: '/mnt/nas02/Videos/movies/anime'
+        servicename: 'mnt-nas02-Videos-movies-anime.mount'
+        device: '//10.10.125.202/Videos/movies/anime'
+        fstype: 'cifs'
+        username: 'plex'
+     -  mount: '/mnt/nas02/Videos/movies/hd'
+        servicename: 'mnt-nas02-Videos-movies-hd.mount'
+        device: '//10.10.125.202/Videos/movies/hd'
+        fstype: 'cifs'
+        username: 'plex'
+     -  mount: '/mnt/nas02/Videos/movies/uhd'
+        servicename: 'mnt-nas02-Videos-movies-uhd.mount'
+        device: '//10.10.125.202/Videos/movies/uhd'
+        fstype: 'cifs'
+        username: 'plex'
+     -  mount: '/mnt/nas02/Videos/tv/anime'
+        servicename: 'mnt-nas02-Videos-tv-anime.mount'
+        device: '//10.10.125.202/Videos/tv/anime'
+        fstype: 'cifs'
+        username: 'plex'
+     -  mount: '/mnt/nas02/Videos/tv/hd'
+        servicename: 'mnt-nas02-Videos-tv-hd.mount'
+        device: '//10.10.125.202/Videos/tv/hd'
+        fstype: 'cifs'
+        username: 'plex'
+     -  mount: '/mnt/nas02/Videos/tv/uhd'
+        servicename: 'mnt-nas02-Videos-tv-uhd.mount'
+        device: '//10.10.125.202/Videos/tv/uhd'
+        fstype: 'cifs'
+        username: 'plex'

@@ -11,9 +11,6 @@ useradd ansible
 usermod -a -G sudo ansible
 mkhomedir_helper ansible
 
-#no password access
-sudo passwd -q ansible
-
 mkdir /home/ansible/.ssh
 touch /home/ansible/.ssh/authorized_keys
 

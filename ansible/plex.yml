@@ -1,0 +1,18 @@
+- hosts: plex
+  become: yes
+  become_method: sudo
+  roles:
+    - ansible_client
+    - docker
+  tasks:
+    - set_fact:
+        applications:
+          - name : Plex
+
+    - name: setup application
+      include_tasks:
+        file: tasks/setup_application.yml
+      vars:
+        application: "{{ item }}"
+        application_group: "plex"
+      with_items: "{{ applications }}"

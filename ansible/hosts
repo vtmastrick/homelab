@@ -9,3 +9,5 @@ all:
       ansible_host: homelab01.local.mastrick.com
     stream:
       ansible_host: homelab01.local.mastrick.com
+    plex:
+      ansible_host: plex01.local.mastrick.com
