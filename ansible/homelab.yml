@@ -7,17 +7,17 @@
   tasks:
     - set_fact:
         applications:
-#          - name : ArchiveBox
-#          - name : libreSpeed
-#          - name : Ghostfolio
-#          - name : Syncthing
-#          - name : Paperless_NGX
-#          - name : IT-Tools
-#          - name : Stirling-PDF
-#          - name : flatnotes
-#          - name : LibreTranslate
-#          - name : Uptime-Kuma
-#          - name : OpenSpeedTest
+          - name : ArchiveBox
+          - name : libreSpeed
+          - name : Ghostfolio
+          - name : Syncthing
+          - name : Paperless_NGX
+          - name : IT-Tools
+          - name : Stirling-PDF
+          - name : flatnotes
+          - name : LibreTranslate
+          - name : Uptime-Kuma
+          - name : OpenSpeedTest
           - name : Forgejo
 
     - name: setup application
@@ -29,7 +29,7 @@
       with_items: "{{ applications }}"
       loop_control:
         loop_var: application_name
-        
+
     - name: setup application
       include_tasks:
         file: tasks/nginx.yml
