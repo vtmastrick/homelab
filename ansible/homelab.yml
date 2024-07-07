@@ -7,17 +7,18 @@
   tasks:
     - set_fact:
         applications:
-          - name : ArchiveBox
-          - name : libreSpeed
-          - name : Ghostfolio
-          - name : Syncthing
-          - name : Paperless_NGX
-          - name : IT-Tools
-          - name : Stirling-PDF
-          - name : flatnotes
-          - name : LibreTranslate
-          - name : Uptime-Kuma
-          - name : OpenSpeedTest
+#          - name : ArchiveBox
+#          - name : libreSpeed
+#          - name : Ghostfolio
+#          - name : Syncthing
+#          - name : Paperless_NGX
+#          - name : IT-Tools
+#          - name : Stirling-PDF
+#          - name : flatnotes
+#          - name : LibreTranslate
+#          - name : Uptime-Kuma
+#          - name : OpenSpeedTest
+          - name : Forgejo
 
     - name: setup application
       include_tasks:
