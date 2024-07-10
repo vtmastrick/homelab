@@ -4,12 +4,12 @@ apt-get upgrade -y
 apt autoremove -y
 apt-get -y install perl
 apt-get -y install ansible
+apt-get -y install sudo
 
 #wipe and reinitialize ansible user
 deluser --remove-home ansible
-useradd ansible
+adduser --disabled-password --gecos "" ansible
 usermod -a -G sudo ansible
-mkhomedir_helper ansible
 
 mkdir /home/ansible/.ssh
 touch /home/ansible/.ssh/authorized_keys
@@ -26,7 +26,7 @@ chown ansible:ansible /home/ansible/.ssh -R
 
 #ansible needs no password
 #echo "%ansible ALL=NOPASSWD: ALL" | tee /etc/sudoers.d/ansible
-sudo adduser ansible sudo
+adduser ansible sudo
 
 #cleanup
 rm id_rsa.pub
