@@ -1,5 +1,3 @@
-version: "3"
-
 services:
     pipedfrontend:
         image: 1337kavin/piped-frontend:latest

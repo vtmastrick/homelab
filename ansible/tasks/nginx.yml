@@ -67,3 +67,18 @@
   set_fact:
     app.changed : true
   when: nginx_host.changed or nginx_server.changed or nginx_location.changed
+  
+  #start container
+- name: Restart container for nginx
+  community.docker.docker_compose_v2:
+    project_src: "/opt/docker-compose/nginx/"
+    state: restarted
+  register:
+    restarted
+  when: nginx_host.changed or nginx_server.changed or nginx_location.changed
+  
+- name: Start container for nginx
+  community.docker.docker_compose_v2:
+    project_src: "/opt/docker-compose/nginx/"
+    state: present
+  #when: (nginx_host.changed or nginx_server.changed or nginx_location.changed) and (restarted is not change)

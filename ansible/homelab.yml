@@ -1,4 +1,4 @@
-- hosts: homelab01
+- hosts: homelab02
   become: yes
   become_method: sudo
   roles:
@@ -7,21 +7,8 @@
   tasks:
     - set_fact:
         applications:
-<<<<<<< HEAD
-          - name : ArchiveBox
-          - name : libreSpeed
-          - name : Ghostfolio
-          - name : Syncthing
-          - name : Paperless_NGX
-          - name : IT-Tools
-          - name : Stirling-PDF
-          - name : flatnotes
-          - name : LibreTranslate
-          - name : Uptime-Kuma
-          - name : OpenSpeedTest
-=======
 #          - name : ArchiveBox
-#          - name : libreSpeed
+          - name : libreSpeed
 #          - name : Ghostfolio
 #          - name : Syncthing
 #          - name : Paperless_NGX
@@ -31,8 +18,7 @@
 #          - name : LibreTranslate
 #          - name : Uptime-Kuma
 #          - name : OpenSpeedTest
->>>>>>> 8629f04 (Added forgejo)
-          - name : Forgejo
+#          - name : Forgejo
 
     - name: setup application
       include_tasks:
@@ -44,7 +30,21 @@
       loop_control:
         loop_var: application_name
 
-    - name: setup application
+    - set_fact:
+        applications:
+          - name : nginx
+
+    - name: setup nginx app
+      include_tasks:
+        file: tasks/setup_application.yml
+      vars:
+        application: "{{ application_name }}"
+        application_group: "core"
+      with_items: "{{ applications }}"
+      loop_control:
+        loop_var: application_name
+
+    - name: setup nginx
       include_tasks:
         file: tasks/nginx.yml
       vars:

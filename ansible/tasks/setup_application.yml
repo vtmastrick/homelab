@@ -6,7 +6,7 @@
 - name: include map
   include_vars:
     file: maps.yml
-    
+
 - name: lower application name for "{{ application.name }}"
   set_fact:
     app_name_lower: "{{ application.name | lower }}"
@@ -18,7 +18,7 @@
 - name: get application id for "{{ application.name }}"
   set_fact:
     app_service_name : "{{ app_config.servicename | default(app_name_lower) }}"
-   
+
 - name: get mount names for "{{ application.name }}"
   set_fact:
     app_mount_names : "{{ app_config.mounts | to_json | from_json | json_query('[*].servicename') | join(' ') }}"
@@ -28,7 +28,7 @@
   set_fact:
     app_mount_names : ""
   when: app_config.mounts is not defined
-  
+
 - name: vars for "{{ application.name }}"
   set_fact:
     pre_path:  "roles/{{ app_name_lower }}/tasks/pre.yml"
@@ -83,7 +83,7 @@
   loop_control:
     loop_var: item_mount
   when: app_config.mounts is defined
-  
+
 - name: Add nfs mounts for "{{ application.name }}"
   include_tasks:
     file: tasks/add_mount.yml
@@ -93,7 +93,20 @@
   with_items: "{{ app_config.mounts | selectattr('fstype', 'equalto', 'nfs') }}"
   loop_control:
     loop_var: item_mount
-  when: app_config.mounts is defined  
+  when: app_config.mounts is defined
+
+#pre reqs
+- name: Check for prereqs for "{{ application.name }}"
+  become: no
+  local_action: stat path="{{ pre_path }}"
+  register: pre_deploy
+
+- name: Do pre deploy for "{{ application.name }}"
+  include_tasks:
+    file: "{{ pre_path }}"
+  when: pre_deploy.stat.exists
+  register:
+    pre_deploy_action
 
 #deploy files
 - name: Copy pre req templates for "{{ application.name }}"
@@ -105,7 +118,7 @@
   with_items: "{{ app_config.prereq }}"
   loop_control:
     loop_var: prereq_templates
-  when: app_config.prereq is defined  
+  when: app_config.prereq is defined
   register: prereq
 
 #docker compose configuration
@@ -143,18 +156,34 @@
   register:
     post_deploy_action
 
-#deploy and start service
-- name: Deploy service for "{{ application.name }}"
-  template:
-    src: ../templates/core/docker-compose.service
-    dest: "{{ service_path }}"
-  register:
-    service
-
-- name: Restart service for "{{ application.name }}"
-  service:
-    name: "{{ service_name }}"
+#start container
+- name: Restart container for "{{ application.name }}"
+  community.docker.docker_compose_v2:
+    project_src: "{{ compose_path | dirname }}"
     state: restarted
-    enabled: yes
-    daemon_reload: yes
-  when: compose.changed or post_deploy_action.changed or service.changed or app.changed
+  register:
+    restarted
+  when: compose.changed or post_deploy_action.changed or pre_deploy_action.changed
+  
+- name: Start container for "{{ application.name }}"
+  community.docker.docker_compose_v2:
+    project_src: "{{ compose_path | dirname }}"
+    state: present
+  when: (compose.changed or post_deploy_action.changed or pre_deploy_action.changed) and (restarted is not change)
+
+
+#deploy and start service
+#- name: Deploy service for "{{ application.name }}"
+#  template:
+#    src: ../templates/core/docker-compose.service
+#    dest: "{{ service_path }}"
+#  register:
+#    service
+
+#- name: Restart service for "{{ application.name }}"
+#  service:
+#    name: "{{ service_name }}"
+#    state: restarted
+#    enabled: yes
+#    daemon_reload: yes
+#  when: compose.changed or post_deploy_action.changed or service.changed or app.changed

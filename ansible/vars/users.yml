@@ -132,69 +132,6 @@ users:
        destination: "/opt/docker-compose/piped/config/pipedproxy.conf"
      - template_name: "ytproxy.conf"
        destination: "/opt/docker-compose/piped/config/ytproxy.conf"
- - app: 'sonarr_hd'
-   username: 'sonarr_hd'
-   groupname: 'sonarr_hd'
-   uid: 2060
-   gid: 2060
-   mounts:
-     - mount: '/mnt/sonarr_hd/downloads'
-       servicename: 'mnt-sonarr_hd-downloads.mount'
-       device: '//10.10.125.202/nzb/downloads'
-       fstype: 'cifs'
-       username: 'sonarr_hd'
-     - mount: '/mnt/sonarr_hd/torrents'
-       servicename: 'mnt-sonarr_hd-torrents.mount'
-       device: '//10.10.125.202/torrent/downloads'
-       fstype: 'cifs'
-       username: 'sonarr_hd'
-     - mount: '/mnt/sonarr_hd/tv'
-       servicename: 'mnt-sonarr_hd-tv.mount'
-       device: '//10.10.125.202/Videos/tv/hd'
-       fstype: 'cifs'
-       username: 'sonarr_hd'   
- - app: 'sonarr_uhd'
-   username: 'sonarr_uhd'
-   groupname: 'sonarr_uhd'
-   uid: 2061
-   gid: 2061
-   mounts:
-     - mount: '/mnt/sonarr_uhd/downloads'
-       servicename: 'mnt-sonarr_uhd-downloads.mount'
-       device: '//10.10.125.202/nzb/downloads'
-       fstype: 'cifs'
-       username: 'sonarr_uhd'
-     - mount: '/mnt/sonarr_uhd/torrents'
-       servicename: 'mnt-sonarr_uhd-torrents.mount'
-       device: '//10.10.125.202/torrent/downloads'
-       fstype: 'cifs'
-       username: 'sonarr_uhd'
-     - mount: '/mnt/sonarr_uhd/tv'
-       servicename: 'mnt-sonarr_uhd-tv.mount'
-       device: '//10.10.125.202/Videos/tv/uhd'
-       fstype: 'cifs'
-       username: 'sonarr_uhd'
- - app: 'sonarr_anime'
-   username: 'sonarr_anime'
-   groupname: 'sonarr_anime'
-   uid: 2062
-   gid: 2062
-   mounts:
-     - mount: '/mnt/sonarr_anime/downloads'
-       servicename: 'mnt-sonarr_anime-downloads.mount'
-       device: '//10.10.125.202/nzb/downloads'
-       fstype: 'cifs'
-       username: 'sonarr_anime'
-     - mount: '/mnt/sonarr_anime/torrents'
-       servicename: 'mnt-sonarr_anime-torrents.mount'
-       device: '//10.10.125.202/torrent/downloads'
-       fstype: 'cifs'
-       username: 'sonarr_anime'
-     - mount: '/mnt/sonarr_anime/anime'
-       servicename: 'mnt-sonarr_anime-anime.mount'
-       device: '//10.10.125.202/Videos/tv/anime'
-       fstype: 'cifs'
-       username: 'sonarr_anime'
  - app: 'torrent_qbt'
    username: 'torrent_qbt'
    groupname: 'torrent_qbt'
@@ -211,71 +148,6 @@ users:
    groupname: 'gluetun'
    uid: 2000
    gid: 2000
- - app: 'radarr_hd'
-   username: 'radarr_hd'
-   groupname: 'radarr_hd'
-   uid: 2050
-   gid: 2050
-   mounts:
-     - mount: '/mnt/radarr_hd/downloads'
-       servicename: 'mnt-radarr_hd-downloads.mount'
-       device: '//10.10.125.202/nzb/downloads'
-       fstype: 'cifs'
-       username: 'radarr_hd'
-     - mount: '/mnt/radarr_hd/torrents'
-       servicename: 'mnt-radarr_hd-torrents.mount'
-       device: '//10.10.125.202/torrent/downloads'
-       fstype: 'cifs'
-       username: 'radarr_hd'
-     - mount: '/mnt/radarr_hd/movies'
-       servicename: 'mnt-radarr_hd-movies.mount'
-       device: '//10.10.125.202/Videos/movies/hd'
-       fstype: 'cifs'
-       username: 'radarr_hd'
- - app: 'radarr_uhd'
-   username: 'radarr_uhd'
-   groupname: 'radarr_uhd'
-   uid: 2051
-   gid: 2051
-   mounts:
-     - mount: '/mnt/radarr_uhd/downloads'
-       servicename: 'mnt-radarr_uhd-downloads.mount'
-       device: '//10.10.125.202/nzb/downloads'
-       fstype: 'cifs'
-       username: 'radarr_uhd'
-     - mount: '/mnt/radarr_uhd/torrents'
-       servicename: 'mnt-radarr_uhd-torrents.mount'
-       device: '//10.10.125.202/torrent/downloads'
-       fstype: 'cifs'
-       username: 'radarr_uhd'
-     - mount: '/mnt/radarr_uhd/movies'
-       servicename: 'mnt-radarr_uhd-movies.mount'
-       device: '//10.10.125.202/Videos/movies/uhd'
-       fstype: 'cifs'
-       username: 'radarr_uhd'
- - app: 'radarr_anime'
-   username: 'radarr_anime'
-   groupname: 'radarr_anime'
-   uid: 2052
-   gid: 2052
-   directories:
-     - '/mnt/radarr_anime'
-   mounts:
-     - mount: '/mnt/radarr_anime/downloads'
-       servicename: 'mnt-radarr_anime-downloads.mount'
-       device: '//10.10.125.202/nzb/downloads'
-       fstype: 'cifs'
-       username: 'radarr_anime'
-     - mount: '/mnt/radarr_anime/torrents'
-       servicename: 'mnt-radarr_anime-torrents.mount'
-       device: '//10.10.125.202/torrent/downloads'
-       fstype: 'cifs'
-       username: 'radarr_anime'
-     - mount: '/mnt/radarr_anime/movies'
-       servicename: 'mnt-radarr_anime-movies.mount'
-       device: '//10.10.125.202/Videos/movies/anime'
-       fstype: 'cifs'
-       username: 'radarr_anime'
  - app: 'recyclarr'
    username: 'recyclarr'
    groupname: 'recyclarr'
@@ -295,8 +167,8 @@ users:
    servicename: nginx
    username: 'nginx'
    groupname: 'nginx'
-   uid: 9030
-   gid: 9030
+   uid: 9000
+   gid: 9000
  - app: 'invidious'
    username: 'invidious'
    groupname: 'invidious'

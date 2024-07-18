@@ -1,5 +1,3 @@
----
-version: "2.1"
 services:
   nginx:
     image: nginx:latest
@@ -26,7 +24,7 @@ services:
     volumes:
       - /opt/docker-compose/nginx/certbot/www/:/var/www/certbot/:rw
       - /opt/docker-compose/nginx/certbot/conf/:/etc/letsencrypt/:rw
-      - /home/ansible/.secrets/cloudflare.ini:/home/root/.secrets/cloudflare.ini:rw
+      - /home/nginx/.secrets/dns.api.key:/home/root/.secrets/dns.api.key:rw
 
 networks:
   nginx:
