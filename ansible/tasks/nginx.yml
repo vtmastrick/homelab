@@ -63,11 +63,6 @@
     driver_options:
       com.docker.network.bridge.name: nginx-bridge  
 
-- name: set app changed
-  set_fact:
-    app.changed : true
-  when: nginx_host.changed or nginx_server.changed or nginx_location.changed
-  
   #start container
 - name: Restart container for nginx
   community.docker.docker_compose_v2:
