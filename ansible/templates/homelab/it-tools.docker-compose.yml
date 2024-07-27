@@ -2,10 +2,15 @@ services:
   it-tools:
     container_name: it-tools
     restart: always
-    ports:
-      - '8082:80'
     environment:
       - PUID=5025
       - PGID=5025
       - TZ=America/New_York  
     image: corentinth/it-tools:latest
+    networks:
+      - nginx-bridge
+
+networks:
+  nginx-bridge:
+    name: nginx-bridge
+    external: true
