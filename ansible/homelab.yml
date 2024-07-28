@@ -15,7 +15,7 @@
           - name : IT-Tools
 #          - name : Stirling-PDF
 #          - name : flatnotes
-#          - name : LibreTranslate
+          - name : LibreTranslate
 #          - name : Uptime-Kuma
           - name : OpenSpeedTest
 #          - name : Forgejo
