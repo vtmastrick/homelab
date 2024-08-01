@@ -19,6 +19,7 @@
 #          - name : Uptime-Kuma
           - name : OpenSpeedTest
 #          - name : Forgejo
+          - name : MeTube
 
     - name: setup application
       include_tasks:
