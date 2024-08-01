@@ -20,6 +20,7 @@
           - name : OpenSpeedTest
 #          - name : Forgejo
           - name : MeTube
+          - name : Your_Spotify
 
     - name: setup application
       include_tasks:

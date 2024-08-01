@@ -3,15 +3,15 @@ services:
     image: yooooomi/your_spotify_server
     container_name: your_spotify_api
     restart: always
-    ports:
-      - "8567:8080"
+#    ports:
+#      - "8567:8080"
     links:
       - mongo
     depends_on:
       - mongo
     environment:
-      API_ENDPOINT: {{ vault_your_spotify_api_endpoint }} # This MUST be included as a valid URL in the spotify dashboard (see below)
-      CLIENT_ENDPOINT: {{ vault_your_spotify_client_endpoint }}
+      API_ENDPOINT: https://yourspotify.local.mastrick.com/api # This MUST be included as a valid URL in the spotify dashboard (see below)
+      CLIENT_ENDPOINT: https://yourspotify.local.mastrick.com
       SPOTIFY_PUBLIC: {{ vault_spotify_client_id }}
       SPOTIFY_SECRET: {{ vault_spotify_secret }}
     networks:
@@ -30,10 +30,10 @@ services:
     image: yooooomi/your_spotify_client
     restart: always
     container_name: your_spotify_web
-    ports:
-      - "3456:3000"
+#    ports:
+#      - "3456:3000"
     environment:
-      API_ENDPOINT: {{ vault_your_spotify_api_endpoint }}
+      API_ENDPOINT: https://yourspotify.local.mastrick.com/api
     networks:
       - your_spotify
       - nginx-bridge   
