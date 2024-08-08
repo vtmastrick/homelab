@@ -11,8 +11,6 @@
           - name : ViewTube
           - name : Piped
           - name : RomM
-          - name : Your_Spotify
-          - name : MeTube
           - name : TubeArchivist
 
     - name: setup application
