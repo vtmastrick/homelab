@@ -13,11 +13,11 @@ services:
       - REDIS_HOST=archivist-redis          # don't add protocol
       - HOST_UID=6080
       - HOST_GID=6080
-      - TA_HOST=10.10.125.74         # set your host name
-      - TA_USERNAME=tubearchivist           # your initial TA credentials
-      - TA_PASSWORD=verysecret              # your initial TA credentials
-      - ELASTIC_PASSWORD=verysecret         # set password for Elasticsearch
-      - TZ=America/New_York                 # set your time zone
+      - TA_HOST=tubearchivist.local.mastrick.com
+      - TA_USERNAME={{ vault_tubearchivist_username }}
+      - TA_PASSWORD={{ vault_tubearchivist_password }}
+      - ELASTIC_PASSWORD={{ vault_tubearchivist_password_es }}
+      - TZ=America/New_York
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 2m
@@ -52,8 +52,8 @@ services:
     container_name: archivist-es
     restart: unless-stopped
     environment:
-      - "ELASTIC_PASSWORD=verysecret"       # matching Elasticsearch password
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ELASTIC_PASSWORD={{ vault_tubearchivist_password_es }}"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
       - "xpack.security.enabled=true"
       - "discovery.type=single-node"
       - "path.repo=/usr/share/elasticsearch/data/snapshot"

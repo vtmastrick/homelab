@@ -8,19 +8,20 @@
     - set_fact:
         applications:
 #          - name : ArchiveBox
-          - name : libreSpeed
+##          - name : libreSpeed
 #          - name : Ghostfolio
 #          - name : Syncthing
 #          - name : Paperless_NGX
-          - name : IT-Tools
-          - name : Stirling-PDF
+##          - name : IT-Tools
+##          - name : Stirling-PDF
 #          - name : flatnotes
-          - name : LibreTranslate
+##          - name : LibreTranslate
 #          - name : Uptime-Kuma
-          - name : OpenSpeedTest
+##          - name : OpenSpeedTest
 #          - name : Forgejo
-          - name : MeTube
-          - name : Your_Spotify
+##          - name : MeTube
+##          - name : Your_Spotify
+##          - name : TubeArchivist          
 
     - name: setup application
       include_tasks:
