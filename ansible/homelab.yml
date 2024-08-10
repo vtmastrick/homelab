@@ -10,7 +10,7 @@
 #          - name : ArchiveBox
 ##          - name : libreSpeed
 #          - name : Ghostfolio
-#          - name : Syncthing
+          - name : Syncthing
 #          - name : Paperless_NGX
 ##          - name : IT-Tools
 ##          - name : Stirling-PDF
