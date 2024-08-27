@@ -64,9 +64,11 @@ users:
        fstype: 'cifs'
        username: 'paperless_ngx'
    directories:
-     - directory: /mnt/paperless_ngx/media
-     - directory: /mnt/paperless_ngx/export
-     - directory: /mnt/paperless_ngx/consume
+     - /opt/docker-compose/paperless_ngx
+     - /mnt/paperless_ngx/data
+     - /mnt/paperless_ngx/media
+     - /mnt/paperless_ngx/export
+     - /mnt/paperless_ngx/consume
    prereq:
      - template_name: "docker-compose.env"
        destination: "/opt/docker-compose/paperless_ngx/docker-compose.env"

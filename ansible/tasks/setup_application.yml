@@ -109,6 +109,17 @@
     pre_deploy_action
 
 #deploy files
+- name: Create pre req directories "{{ application.name }}"
+  file:
+    path: "{{ prereq_templates.destination | dirname }}"
+    owner: "{{ app_config.username }}"
+    group: "{{ app_config.groupname }}"
+    state: directory
+  with_items: "{{ app_config.prereq }}"
+  loop_control:
+    loop_var: prereq_templates
+  when: app_config.prereq is defined
+  
 - name: Copy pre req templates for "{{ application.name }}"
   template:
     src: "templates/{{ application_group }}/{{app_name_lower}}.pre.{{ prereq_templates.template_name }}"

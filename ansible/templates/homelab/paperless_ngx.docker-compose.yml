@@ -28,15 +28,15 @@ services:
     depends_on:
       - db
       - broker
-    ports:
-      - "8123:8000"
+#    ports:
+#     - "8123:8000"
     healthcheck:
       test: ["CMD", "curl", "-fs", "-S", "--max-time", "2", "http://localhost:8000"]
       interval: 30s
       timeout: 10s
       retries: 5
     volumes:
-      - ./data/:/usr/src/paperless/data
+      - /mnt/paperless_ngx/data:/usr/src/paperless/data
       - /mnt/paperless_ngx/media/:/usr/src/paperless/media
       - /mnt/paperless_ngx/export/:/usr/src/paperless/export
       - /mnt/paperless_ngx/consume/:/usr/src/paperless/consume
@@ -46,6 +46,9 @@ services:
       PAPERLESS_DBHOST: db
     networks:
       - paperless-ngx
+      - nginx-bridge      
 
 networks:
   paperless-ngx:
+  nginx-bridge:
+    external: true  
