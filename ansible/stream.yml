@@ -8,7 +8,6 @@
     - set_fact:
         applications:
           - name : Invidious
-          - name : ViewTube
           - name : Piped
           - name : RomM
 

@@ -11,7 +11,7 @@
 ##          - name : libreSpeed
 #          - name : Ghostfolio
 ##          - name : Syncthing
-          - name : Paperless_NGX
+          ##- name : Paperless_NGX
 ##          - name : IT-Tools
 ##          - name : Stirling-PDF
 #          - name : flatnotes
@@ -21,7 +21,8 @@
 #          - name : Forgejo
 ##          - name : MeTube
 ##          - name : Your_Spotify
-##          - name : TubeArchivist          
+##          - name : TubeArchivist     
+          - name : Viewtube
 
     - name: setup application
       include_tasks:
