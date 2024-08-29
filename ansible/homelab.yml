@@ -22,7 +22,8 @@
 ##          - name : MeTube
 ##          - name : Your_Spotify
 ##          - name : TubeArchivist     
-          - name : Viewtube
+##          - name : Viewtube
+          - name : Dozzle
 
     - name: setup application
       include_tasks:
