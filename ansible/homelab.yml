@@ -14,7 +14,7 @@
           ##- name : Paperless_NGX
 ##          - name : IT-Tools
 ##          - name : Stirling-PDF
-#          - name : flatnotes
+##          - name : flatnotes
 ##          - name : LibreTranslate
 #          - name : Uptime-Kuma
 ##          - name : OpenSpeedTest
@@ -23,7 +23,7 @@
 ##          - name : Your_Spotify
 ##          - name : TubeArchivist     
 ##          - name : Viewtube
-          - name : Dozzle
+##          - name : Dozzle
 
     - name: setup application
       include_tasks:
