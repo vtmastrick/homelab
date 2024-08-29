@@ -3,8 +3,8 @@ services:
     container_name: archivebox
     image: archivebox/archivebox:dev
     command: server --quick-init 0.0.0.0:8000
-    ports:
-      - 8000:8000
+#    ports:
+#      - 8000:8000
     volumes:
       - ./data:/data
       - /mnt/archivebox/data/archive:/data/archive
@@ -16,3 +16,11 @@ services:
       - PGID=5020
       - ADMIN_USERNAME={{ vault_archivebox_admin_username }}
       - ADMIN_PASSWORD={{ vault_archivebox_admin_password }}
+    networks:
+      - archivebox
+      - nginx-bridge
+
+networks:
+  archivebox:
+  nginx-bridge:
+    external: true

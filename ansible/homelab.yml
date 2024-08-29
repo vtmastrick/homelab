@@ -7,7 +7,7 @@
   tasks:
     - set_fact:
         applications:
-#          - name : ArchiveBox
+          - name : ArchiveBox
 ##          - name : libreSpeed
 #          - name : Ghostfolio
 ##          - name : Syncthing
