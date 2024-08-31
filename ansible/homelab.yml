@@ -7,7 +7,7 @@
   tasks:
     - set_fact:
         applications:
-          - name : ArchiveBox
+#          - name : ArchiveBox
 ##          - name : libreSpeed
 #          - name : Ghostfolio
 ##          - name : Syncthing
@@ -18,7 +18,7 @@
 ##          - name : LibreTranslate
 #          - name : Uptime-Kuma
 ##          - name : OpenSpeedTest
-#          - name : Forgejo
+          - name : Forgejo
 ##          - name : MeTube
 ##          - name : Your_Spotify
 ##          - name : TubeArchivist     
