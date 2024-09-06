@@ -18,12 +18,13 @@
 ##          - name : LibreTranslate
 #          - name : Uptime-Kuma
 ##          - name : OpenSpeedTest
-          - name : Forgejo
+##          - name : Forgejo
 ##          - name : MeTube
 ##          - name : Your_Spotify
 ##          - name : TubeArchivist     
 ##          - name : Viewtube
 ##          - name : Dozzle
+          - name: GameVault
 
     - name: setup application
       include_tasks:
