@@ -7,7 +7,6 @@
   tasks:
     - set_fact:
         applications:
-          - name : Invidious
           - name : Piped
           - name : RomM
 
