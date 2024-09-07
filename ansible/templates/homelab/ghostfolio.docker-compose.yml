@@ -9,13 +9,16 @@ services:
       NODE_ENV: production
       REDIS_HOST: 'redis'
       REDIS_PASSWORD: ${REDIS_PASSWORD}
-    ports:
-      - 3333:3333
+#    ports:
+#      - 3333:3333
     depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
+    networks:
+      - ghostfolio
+      - nginx-bridge
 
   postgres:
     container_name: ghostfolio-postgres
@@ -29,6 +32,8 @@ services:
       retries: 5
     volumes:
       - ./postgresql/data:/var/lib/postgresql/data
+    networks:
+      - ghostfolio
 
   redis:
     container_name: ghostfolio-redis
@@ -38,3 +43,10 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - ghostfolio
+
+networks:
+  ghostfolio:
+  nginx-bridge:
+    external: true
