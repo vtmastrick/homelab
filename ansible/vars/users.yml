@@ -72,34 +72,6 @@ users:
    prereq:
      - template_name: "docker-compose.env"
        destination: "/opt/docker-compose/paperless_ngx/docker-compose.env"
- - app: 'prowlarr'
-   username: 'prowlarr'
-   groupname: 'prowlarr'
-   uid: 2010
-   gid: 2010
-   directories:
-     - /opt/docker-compose/prowlarr/
-     - /opt/docker-compose/prowlarr/config/
-   prereq:
-     - template_name: "config.xml"
-       destination: "/opt/docker-compose/prowlarr/config/config.xml"
- - app: 'nzbget'
-   username: 'nzbget'
-   groupname: 'nzbget'
-   uid: 2080
-   gid: 2080
-   mounts:
-     - mount: '/mnt/nzbget'
-       servicename: 'mnt-nzbget.mount'
-       device: '//10.10.125.202/nzb'
-       fstype: 'cifs'
-       username: 'nzb'
-   directories:
-     - '/mnt/nzbget/downloads'
-     - '/mnt/nzbget/config'
-   prereq:
-     - template_name: "nzbget.conf"
-       destination: "/mnt/nzbget/config/nzbget.conf"
  - app: 'viewtube'
    username: 'viewtube'
    groupname: 'viewtube'
@@ -134,17 +106,6 @@ users:
        destination: "/opt/docker-compose/piped/config/pipedproxy.conf"
      - template_name: "ytproxy.conf"
        destination: "/opt/docker-compose/piped/config/ytproxy.conf"
- - app: 'torrent_qbt'
-   username: 'torrent_qbt'
-   groupname: 'torrent_qbt'
-   uid: 2070
-   gid: 2070
-   mounts:
-     - mount: '/mnt/torrent_qbt'
-       servicename: 'mnt-torrent_qbt.mount'
-       device: '//10.10.125.202/torrent'
-       fstype: 'cifs'
-       username: 'torrent_qbt'
  - app: 'gluetun'
    username: 'gluetun'
    groupname: 'gluetun'
@@ -171,14 +132,6 @@ users:
    groupname: 'nginx'
    uid: 9000
    gid: 9000
- - app: 'invidious'
-   username: 'invidious'
-   groupname: 'invidious'
-   uid: 6000
-   gid: 6000
-   prereq:
-     - template_name: ".env"
-       destination: "/opt/docker-compose/invidious/.env"
  - app: 'it-tools'
    username: 'it-tools'
    groupname: 'it-tools'

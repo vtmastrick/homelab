@@ -7,16 +7,6 @@
   tasks:
     - set_fact:
         applications:
-          - name : Gluetun
-          - name : Prowlarr
-          - name : NZBGet
-          - name : Sonarr_HD
-          - name : Sonarr_UHD
-          - name : Sonarr_Anime
-          - name : Torrent_qBt
-          - name : Radarr_HD
-          - name : Radarr_UHD
-          - name : Radarr_Anime
           - name : Recyclarr
 
     - name: setup application
