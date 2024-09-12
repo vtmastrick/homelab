@@ -6,11 +6,11 @@
     - docker
     - glances
   tasks:
-  
+
     - set_fact:
         applications:
           - name : glances
-          
+
     - name: setup application
       include_tasks:
         file: tasks/setup_application.yml
@@ -19,8 +19,8 @@
         application_group: "core"
       with_items: "{{ applications }}"
       loop_control:
-        loop_var: application_name     
-  
+        loop_var: application_name
+
     - set_fact:
         applications:
 #          - name : ArchiveBox
@@ -40,7 +40,8 @@
 ##          - name : TubeArchivist     
 ##          - name : Viewtube
 ##          - name: GameVault
-          - name: Dozzle
+##          - name: Dozzle
+          - name : Piped
 
     - name: setup application
       include_tasks:

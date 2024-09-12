@@ -7,7 +7,6 @@
   tasks:
     - set_fact:
         applications:
-          - name : Piped
           - name : RomM
 
     - name: setup application
