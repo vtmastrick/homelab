@@ -41,7 +41,8 @@
 ##          - name : Viewtube
 ##          - name: GameVault
 ##          - name: Dozzle
-          - name : Piped
+##          - name : Piped
+          - name : Romm
 
     - name: setup application
       include_tasks:
