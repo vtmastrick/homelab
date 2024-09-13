@@ -32,7 +32,7 @@
 ##          - name : Stirling-PDF
 ##          - name : flatnotes
 ##          - name : LibreTranslate
-#          - name : Uptime-Kuma
+          - name : Uptime-Kuma
 ##          - name : OpenSpeedTest
 ##          - name : Forgejo
 ##          - name : MeTube
@@ -42,7 +42,7 @@
 ##          - name: GameVault
 ##          - name: Dozzle
 ##          - name : Piped
-          - name : Romm
+##          - name : Romm
 
     - name: setup application
       include_tasks:
