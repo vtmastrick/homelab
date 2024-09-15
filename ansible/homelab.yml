@@ -32,7 +32,7 @@
 ##          - name : Stirling-PDF
 ##          - name : flatnotes
 ##          - name : LibreTranslate
-          - name : Uptime-Kuma
+##          - name : Uptime-Kuma
 ##          - name : OpenSpeedTest
 ##          - name : Forgejo
 ##          - name : MeTube
@@ -43,6 +43,7 @@
 ##          - name: Dozzle
 ##          - name : Piped
 ##          - name : Romm
+          - name: pyLoad-NG
 
     - name: setup application
       include_tasks:

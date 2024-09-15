@@ -9,11 +9,19 @@ users:
    groupname: 'librespeed'
    uid: 5005
    gid: 5005
- - app: 'pyload'
-   username: 'pyload'
-   groupname: 'pyload'
+ - app: 'pyload-ng'
+   username: 'pyload-ng'
+   groupname: 'pyload-ng'
    uid: 5010
    gid: 5010
+   mounts:
+     - mount: '/mnt/pyload_ng'
+       servicename: 'mnt-pyload_ng.mount'
+       device: '//10.10.125.202/pyload_ng'
+       fstype: 'cifs'
+       username: 'pyload_ng'
+   directories:
+     - directory: /mnt/pyload_ng
  - app: 'archivebox'
    username: 'archivebox'
    groupname: 'archivebox'
