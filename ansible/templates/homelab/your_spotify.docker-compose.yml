@@ -2,7 +2,7 @@ services:
   server:
     image: yooooomi/your_spotify_server
     container_name: your_spotify_api
-    restart: always
+    restart: unless-stopped
 #    ports:
 #      - "8567:8080"
     links:
@@ -17,9 +17,10 @@ services:
     networks:
       - your_spotify
       - nginx-bridge
-      
+
   mongo:
     container_name: your_spotify_mongo
+    restart: unless-stopped
     image: mongo:4.4.6
     volumes:
       - ./your_spotify_db:/data/db
@@ -28,7 +29,7 @@ services:
 
   web:
     image: yooooomi/your_spotify_client
-    restart: always
+    restart: unless-stopped
     container_name: your_spotify_web
 #    ports:
 #      - "3456:3000"
@@ -36,9 +37,9 @@ services:
       API_ENDPOINT: https://yourspotify.local.mastrick.com/api
     networks:
       - your_spotify
-      - nginx-bridge   
-      
+      - nginx-bridge
+
 networks:
   your_spotify:
   nginx-bridge:
-    external: true  
+    external: true

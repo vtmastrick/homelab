@@ -114,21 +114,6 @@ users:
        destination: "/opt/docker-compose/piped/config/pipedproxy.conf"
      - template_name: "ytproxy.conf"
        destination: "/opt/docker-compose/piped/config/ytproxy.conf"
- - app: 'gluetun'
-   username: 'gluetun'
-   groupname: 'gluetun'
-   uid: 2000
-   gid: 2000
- - app: 'recyclarr'
-   username: 'recyclarr'
-   groupname: 'recyclarr'
-   uid: 2020
-   gid: 2020
-   directories:
-     - '/opt/docker-compose/recyclarr/config'
-   prereq:
-     - template_name: "recyclarr.yml"
-       destination: "/opt/docker-compose/recyclarr/config/recyclarr.yml"
  - app: 'watchtower'
    username: 'watchtower'
    groupname: 'watchtower'
