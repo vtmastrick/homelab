@@ -1,24 +1,49 @@
-- hosts: homelab01
+- hosts: homelab02
   become: yes
   become_method: sudo
   roles:
     - ansible_client
     - docker
+    - glances
   tasks:
+
     - set_fact:
         applications:
-          - name : ArchiveBox
-          - name : libreSpeed
-          - name : Ghostfolio
-          - name : Syncthing
-          - name : Paperless_NGX
-          - name : IT-Tools
-          - name : Stirling-PDF
-          - name : flatnotes
-          - name : LibreTranslate
-          - name : Uptime-Kuma
-          - name : OpenSpeedTest
-          - name : Forgejo
+          - name : glances
+
+    - name: setup application
+      include_tasks:
+        file: tasks/setup_application.yml
+      vars:
+        application: "{{ application_name }}"
+        application_group: "core"
+      with_items: "{{ applications }}"
+      loop_control:
+        loop_var: application_name
+
+    - set_fact:
+        applications:
+#          - name : ArchiveBox
+##          - name : libreSpeed
+##          - name : Ghostfolio
+##          - name : Syncthing
+          ##- name : Paperless_NGX
+##          - name : IT-Tools
+##          - name : Stirling-PDF
+##          - name : flatnotes
+##          - name : LibreTranslate
+##          - name : Uptime-Kuma
+##          - name : OpenSpeedTest
+##          - name : Forgejo
+##          - name : MeTube
+##          - name : Your_Spotify
+##          - name : TubeArchivist     
+##          - name : Viewtube
+##          - name: GameVault
+##          - name: Dozzle
+##          - name : Piped
+##          - name : Romm
+          - name: pyLoad-NG
 
     - name: setup application
       include_tasks:
@@ -30,7 +55,27 @@
       loop_control:
         loop_var: application_name
 
-    - name: setup application
+    - set_fact:
+        applications:
+          - name : nginx
+
+    - name: setup nginx app
+      include_tasks:
+        file: tasks/setup_application.yml
+      vars:
+        application: "{{ application_name }}"
+        application_group: "core"
+      with_items: "{{ applications }}"
+      loop_control:
+        loop_var: application_name
+
+    - name: setup nginx
+      include_tasks:
+        file: tasks/nginx.yml
+      vars:
+        application_group: "core"
+
+    - name: setup nginx
       include_tasks:
         file: tasks/nginx.yml
       vars:

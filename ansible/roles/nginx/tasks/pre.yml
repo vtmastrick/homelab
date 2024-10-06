@@ -1,0 +1,17 @@
+---
+- name: vars for "{{ application.name }}"
+  set_fact:
+    api_dest: "/home/nginx/.secrets/dns.api.key"
+    
+- name: Create directory for secret
+  file:
+    path: "{{ api_dest | dirname }}"
+    state: directory
+
+- name: Copy dns secret
+  copy:
+    src: ~/.secrets/dns.api.key
+    dest: "{{ api_dest }}"
+    owner: nginx
+    group: nginx
+    mode: '660'

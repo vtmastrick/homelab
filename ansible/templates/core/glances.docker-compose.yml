@@ -1,16 +1,23 @@
-version: '3.3'
 services:
   glances:
     container_name: glances
-    restart: always
-    ports:
-      - '61208-61209:61208-61209'
+    restart: unless-stopped
+#    ports:
+#      - '61208-61209:61208-61209'
     environment:
       - GLANCES_OPT=-w
       - PUID=3005
       - PGID=3005
-      - TZ=America/New_York      
+      - TZ=America/New_York
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
     pid: host
     image: docker.io/nicolargo/glances
+    networks:
+      - glances
+      - nginx-bridge
+
+networks:
+  glances:
+  nginx-bridge:
+    external: true

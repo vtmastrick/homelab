@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   libretranslate:
     container_name: libretranslate
@@ -8,10 +7,17 @@ services:
     mem_limit: 4g
     security_opt:
       - no-new-privileges:true
-    ports:
-      - 7821:5000
+#    ports:
+#      - 5000:5000
     environment:
       LT_LOAD_ONLY: en,fr,de,es,ru,zh
       PUID : 5045
       PGID : 5045
       TZ : America/New_York
+    networks:
+      - nginx-bridge    
+    
+networks:
+  nginx-bridge:
+    name: nginx-bridge
+    external: true

@@ -1,10 +1,9 @@
-version: '3.3'
 services:
   libreSpeed:
     container_name: librespeed
-    restart: always
-    ports:
-      - '8086:80'
+    restart: unless-stopped
+    #ports:
+    #  - '8086:80'
     environment:
       - MODE=standalone
       - TELEMETRY=true
@@ -12,5 +11,12 @@ services:
       - PASSWORD=testPassword
       - PUID=5005
       - PGID=5005
-      - TZ=America/New_York  
+      - TZ=America/New_York
     image: adolfintel/speedtest
+    networks:
+      - nginx-bridge    
+    
+networks:
+  nginx-bridge:
+    name: nginx-bridge
+    external: true    

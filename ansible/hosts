@@ -3,11 +3,7 @@ all:
     ansible_connection: ssh
     ansible_user: ansible
   hosts:
-    homelab01:
-      ansible_host: homelab01.local.mastrick.com
-    arr:
-      ansible_host: homelab01.local.mastrick.com
-    stream:
-      ansible_host: homelab01.local.mastrick.com
+    homelab02:
+      ansible_host: homelab02.local.mastrick.com
     plex:
       ansible_host: plex01.local.mastrick.com

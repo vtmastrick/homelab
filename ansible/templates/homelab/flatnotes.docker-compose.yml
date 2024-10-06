@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   flatnotes:
     container_name: flatnotes
@@ -11,9 +9,17 @@ services:
       FLATNOTES_USERNAME: "{{ vault_flatnotes_user }}"
       FLATNOTES_PASSWORD: "{{ vault_flatnotes_password }}"
       FLATNOTES_SECRET_KEY: "{{ vault_flatnotes_secret_key }}"
-      TZ: America/New_York      
+      TZ: America/New_York
     volumes:
       - "/mnt/flatnotes/data:/data"
-    ports:
-      - "8089:8080"
+#    ports:
+#      - "8089:8080"
     restart: unless-stopped
+    networks:
+      - flatnotes
+      - nginx-bridge
+
+networks:
+  flatnotes:
+  nginx-bridge:
+    external: true

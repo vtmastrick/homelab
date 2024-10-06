@@ -1,10 +1,10 @@
-version: '3.3'
 services:
   stirling-pdf:
     image: frooodle/s-pdf:latest
     container_name: stirling-pdf
-    ports:
-      - '8085:8080'
+    restart: unless-stopped
+#    ports:
+#      - '8085:8080'
     volumes:
       - /mnt/stirling_pdf/trainingData:/usr/share/tesseract-ocr/4.00/tessdata #Required for extra OCR languages
       - /mnt/stirling_pdf/extraConfigs:/configs
@@ -14,3 +14,10 @@ services:
       - PUID=5030
       - PGID=5030
       - TZ=America/New_York
+    networks:
+      - nginx-bridge    
+    
+networks:
+  nginx-bridge:
+    name: nginx-bridge
+    external: true          

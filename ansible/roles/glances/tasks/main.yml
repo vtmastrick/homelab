@@ -1,0 +1,12 @@
+---
+- set_fact:
+    glances_app:
+      - name : "glances"
+      
+- name: setup application
+  include_tasks:
+    file: tasks/setup_application.yml
+  vars:
+    application: "{{ item }}"
+    application_group: "core"
+  with_items: "{{ watchtower_app }}"     

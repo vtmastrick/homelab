@@ -1,16 +1,22 @@
-version: '3.3'
 services:
-  speedtest:
+  openspeedtest:
     #environment:
       #- ENABLE_LETSENCRYPT=True
       #- DOMAIN_NAME=speedtest.yourdomain.com
       #- USER_EMAIL=you@yourdomain.com
     restart: unless-stopped
     container_name: openspeedtest
-    ports:
-      - '1300:3000'
-      - '1443:3001'
+#    ports:
+#      - '1300:3000'
+#      - '1443:3001'
     image: openspeedtest/latest
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
+    networks:
+      - nginx-bridge
+
+networks:
+  nginx-bridge:
+    name: nginx-bridge
+    external: true      

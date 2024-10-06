@@ -1,0 +1,5 @@
+#- name: Create super user
+#  community.docker.docker_container_exec:
+#    container: paperless-ngx-frontend
+#    command: /bin/bash -c "python3 manage.py createsuperuser"
+#  register: result    
