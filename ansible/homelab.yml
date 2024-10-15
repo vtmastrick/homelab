@@ -43,7 +43,8 @@
 ##          - name: Dozzle
 ##          - name : Piped
 ##          - name : Romm
-          - name: pyLoad-NG
+##          - name: pyLoad-NG
+          - name: Bookstack
 
     - name: setup application
       include_tasks:
