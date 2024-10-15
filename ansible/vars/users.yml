@@ -295,3 +295,8 @@ users:
         device: '//10.10.125.202/Videos/tv/uhd'
         fstype: 'cifs'
         username: 'plex'
+ - app: 'bookstack'
+   username: 'bookstack'
+   groupname: 'bookstack'
+   uid: 5065
+   gid: 5065
