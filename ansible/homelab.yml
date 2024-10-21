@@ -45,7 +45,8 @@
 ##          - name : Romm
 ##          - name: pyLoad-NG
 ##          - name: Bookstack
-          - name: Manyfold
+##          - name: Manyfold
+          - name: Jelu
 
     - name: setup application
       include_tasks:

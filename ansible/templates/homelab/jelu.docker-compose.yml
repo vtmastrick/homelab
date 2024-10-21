@@ -1,0 +1,24 @@
+services:
+  jelu:
+    image: wabayang/jelu
+    container_name: jelu
+    environment:
+      - PUID=5085
+      - PGID=5085
+    volumes:
+      - ./config:/config
+      - ./database:/database
+      - ./files/images:/files/images
+      - ./files/imports:/files/imports
+      - /etc/timezone:/etc/timezone:ro
+#    ports:
+#      - 11111:11111
+    restart: unless-stopped
+    networks:
+      - jelu
+      - nginx-bridge
+
+networks:
+  jelu:
+  nginx-bridge:
+    external: true

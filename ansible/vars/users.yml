@@ -46,6 +46,11 @@ users:
        device: '//10.10.125.201/manyfold'
        fstype: 'cifs'
        username: 'manyfold'
+ - app: 'jelu'
+   username: 'jelu'
+   groupname: 'jelu'
+   uid: 5085
+   gid: 5085
  - app: 'ghostfolio'
    username: 'ghostfolio'
    groupname: 'ghostfolio'
