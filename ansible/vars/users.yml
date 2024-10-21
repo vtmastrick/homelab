@@ -35,6 +35,17 @@ users:
        username: 'ArchiveBox'
    directories:
      - directory: /mnt/archivebox
+ - app: 'manyfold'
+   username: 'manyfold'
+   groupname: 'manyfold'
+   uid: 5075
+   gid: 5075
+   mounts:
+     - mount: '/mnt/manyfold'
+       servicename: 'mnt-manyfold.mount'
+       device: '//10.10.125.201/manyfold'
+       fstype: 'cifs'
+       username: 'manyfold'
  - app: 'ghostfolio'
    username: 'ghostfolio'
    groupname: 'ghostfolio'
