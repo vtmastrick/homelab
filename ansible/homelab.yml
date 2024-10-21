@@ -44,7 +44,8 @@
 ##          - name : Piped
 ##          - name : Romm
 ##          - name: pyLoad-NG
-          - name: Bookstack
+##          - name: Bookstack
+          - name: Manyfold
 
     - name: setup application
       include_tasks:

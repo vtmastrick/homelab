@@ -1,0 +1,60 @@
+---
+services:
+  app:
+    image: ghcr.io/manyfold3d/manyfold:latest
+#    ports:
+#      - 3214:3214
+    container_name: manyfold
+    volumes:
+      - /mnt/manyfold/libraries:/libraries
+    environment:
+      PUID: 5075
+      PGID: 5075
+      SECRET_KEY_BASE: {{ vault_manyfold_secret_key }}
+      REDIS_URL: redis://redis:6379/1
+      DATABASE_ADAPTER: postgresql
+      DATABASE_HOST: postgres
+      DATABASE_USER: manyfold
+      DATABASE_PASSWORD: {{ vault_manyfold_db_password }}
+      DATABASE_NAME: manyfold
+    restart: unless-stopped      
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - manyfold
+      - nginx-bridge
+    # Optional, but recommended for better security
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETUID
+      - SETGID      
+
+  postgres:
+    container_name: manyfold_db
+    image: postgres:15
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: manyfold
+      POSTGRES_PASSWORD: {{ vault_manyfold_db_password }}
+    restart: unless-stopped
+    networks:
+      - manyfold
+
+  redis:
+    container_name: manyfold_redis
+    image: redis:7
+    restart: unless-stopped
+    networks:
+      - manyfold
+
+networks:
+  manyfold:
+  nginx-bridge:
+    external: true
