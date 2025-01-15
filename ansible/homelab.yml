@@ -46,7 +46,8 @@
 ##          - name: pyLoad-NG
 ##          - name: Bookstack
 ##          - name: Manyfold
-          - name: Jelu
+##          - name: Jelu
+          - name: Morphos
 
     - name: setup application
       include_tasks:

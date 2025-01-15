@@ -316,3 +316,8 @@ users:
    groupname: 'bookstack'
    uid: 5065
    gid: 5065
+ - app: 'morphos'
+   username: 'morphos'
+   groupname: 'morphos'
+   uid: 5058
+   gid: 5068
