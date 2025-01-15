@@ -316,3 +316,15 @@ users:
    groupname: 'bookstack'
    uid: 5065
    gid: 5065
+ - app: 'ownfoil'
+   username: 'ownfoil'
+   groupname: 'ownfoil'
+   uid: 5095
+   gid: 5095  
+   mounts:
+     -  mount: '/mnt/ownfoil/emulators'
+        servicename: 'mnt-nas01-Emulators.mount'
+        device: '//10.10.125.201/Emulators'
+        fstype: 'cifs'
+        username: 'ownfoil'
+   
