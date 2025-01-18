@@ -321,3 +321,14 @@ users:
    groupname: 'morphos'
    uid: 5058
    gid: 5068
+ - app: 'ownfoil'
+   username: 'ownfoil'
+   groupname: 'ownfoil'
+   uid: 5095
+   gid: 5095
+   mounts:
+     -  mount: '/mnt/ownfoil/emulators'
+        servicename: 'mnt-nas01-Emulators.mount'
+        device: '//10.10.125.201/Emulators'
+        fstype: 'cifs'
+        username: 'ownfoil'
