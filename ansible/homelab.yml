@@ -47,7 +47,11 @@
 ##          - name: Bookstack
 ##          - name: Manyfold
 ##          - name: Jelu
+<<<<<<< HEAD
+          - name: Morphos
+=======
           - name: Ownfoil
+>>>>>>> dev
 
     - name: setup application
       include_tasks:
