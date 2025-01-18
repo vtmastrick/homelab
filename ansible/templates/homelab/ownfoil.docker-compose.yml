@@ -1,0 +1,20 @@
+services:
+  ownfoil:
+    container_name: ownfoil
+    image: a1ex4/ownfoil
+    environment:
+      - PUID=5095
+      - PGID=5095
+    volumes:
+      - /mnt/ownfoil/Emulators:/games
+      - ./config:/app/config
+#    ports:
+#      - "8465:8465"
+    networks:
+      - ownfoil
+      - nginx-bridge
+
+networks:
+  ownfoil:
+  nginx-bridge:
+    external: true
