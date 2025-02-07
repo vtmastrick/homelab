@@ -1,0 +1,35 @@
+---
+- name: Add safe directory for git
+  shell: "git config --global --add safe.directory /opt/docker-compose/cobalt"
+
+- name: Init git
+  shell:
+    cmd: "git init"
+    chdir: "/opt/docker-compose/cobalt"
+
+- name: check for remote
+  shell:
+    cmd: "git remote"
+    chdir: "/opt/docker-compose/cobalt"
+  register: git_remote_output
+    
+- name: Set origin
+  shell:
+    cmd: "git remote add origin https://github.com/vtmastrick/cobalt.git"
+    chdir: "/opt/docker-compose/cobalt"
+  when: '"not a git repository" in git_remote_output'
+
+- name: Pull repo
+  git:
+    repo: "https://github.com/vtmastrick/cobalt.git"
+    dest: "/opt/docker-compose/cobalt"
+    single_branch: yes
+    version: main
+
+- name: Update ownership
+  file:
+    dest: "/opt/docker-compose/cobalt"
+    owner: yt
+    group: yt
+    mode: u=rwX,g=rX,o=rX
+    recurse: yes

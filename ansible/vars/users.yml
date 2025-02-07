@@ -332,3 +332,25 @@ users:
         device: '//10.10.125.201/Emulators'
         fstype: 'cifs'
         username: 'ownfoil'
+ - app: 'pinchflat'
+   username: 'yt'
+   groupname: 'yt'
+   uid: 5037
+   gid: 5037
+   mounts:
+     - mount: '/mnt/yt/videos'
+       servicename: 'mnt-yt.mount'
+       device: '//10.10.125.202/Videos/web/youtube'
+       fstype: 'cifs'
+       username: 'yt'
+     - mount: '/mnt/yt/music'
+       servicename: 'mnt-yt.mount'
+       device: '//10.10.125.202/Music/web/youtube'
+       fstype: 'cifs'
+       username: 'yt'
+ - app: 'cobalt'
+   username: 'yt'
+   groupname: 'yt'
+   uid: 5037
+   gid: 5037
+  

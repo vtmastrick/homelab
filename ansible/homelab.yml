@@ -37,7 +37,6 @@
 ##          - name : Forgejo
 ##          - name : MeTube
 ##          - name : Your_Spotify
-##          - name : TubeArchivist     
 ##          - name : Viewtube
 ##          - name: GameVault
 ##          - name: Dozzle
@@ -47,11 +46,10 @@
 ##          - name: Bookstack
 ##          - name: Manyfold
 ##          - name: Jelu
-<<<<<<< HEAD
-          - name: Morphos
-=======
-          - name: Ownfoil
->>>>>>> dev
+#          - name: Morphos
+#          - name: Ownfoil
+          - name: cobalt
+##          - name: pinchflat          
 
     - name: setup application
       include_tasks:
