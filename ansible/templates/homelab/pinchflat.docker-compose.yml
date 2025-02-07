@@ -1,0 +1,21 @@
+services:
+  pinchflat:
+    image: 'ghcr.io/kieraneglin/pinchflat:latest'
+    container_name: pinchflat
+    volumes:
+      - /mnt/yt/videos/:/downloads
+      - ./config:/config
+#    ports:
+#       - '8945:8945'
+    environment:
+      - PUID=5037
+      - PGID=5037        
+      - TZ=America/New_York
+    networks:
+      - pinchflat
+      - nginx-bridge
+
+networks:
+  pinchflat:
+  nginx-bridge:
+    external: true      
