@@ -1,0 +1,31 @@
+services:
+  cobalt:
+    container_name: cobalt
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        WEB_HOST: "https://cobalt-api.local.mastrick.com/"
+        WEB_DEFAULT_API: "https://cobalt-api.local.mastrick.com/"
+    init: true
+    read_only: true
+    restart: unless-stopped
+#    ports:
+#      - 127.0.0.1:8000:9000 # api
+#      - 127.0.0.1:8001:9001 # web
+    environment:
+      API_URL: "https://cobalt-api.local.mastrick.com/"
+      API_AUTH_REQUIRED: 0
+      DURATION_LIMIT: 86400 # 24 hours
+      PUID: 5037
+      PGID: 5037
+      TZ: America/New_York
+    networks:
+      - cobalt
+      - nginx-bridge      
+
+networks:
+  nginx-bridge:
+    name: nginx-bridge
+    external: true
+  cobalt:
