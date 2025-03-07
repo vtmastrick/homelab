@@ -28,8 +28,6 @@ services:
 
 networks:
   nginx:
-    name: nginx
-    external: true
   nginx-bridge:
     name: nginx-bridge
     external: true
